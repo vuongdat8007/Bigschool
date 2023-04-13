@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Bigschool_TH_11.Models.CBNV>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mã CBNV</th>
+            <th>Họ Tên</th>
+            <th>Ngày Sinh</th>
+            <th>Giới Tính</th>
+            <th>Quê Quán</th>
+            <th>Nơi Sinh</th>
+            <th>Số CMND/CCCD</th>
+            <th>Hộ Khẩu thường trú</th>
+            <th>Địa chỉ hiện tại</th>
+            <th>Quốc Tịch</th>
+            <th>Dân Tộc</th>
+            <th>Tôn Giáo</th>
+            <th>Trình Độ Văn Hóa</th>
+            <th>Số ĐT</th>
+            <th>Email</th>
+            <th>Ngày Vào Trường</th>
+            <th>Thâm Niên Công Tác</th>
+            <!-- Add the rest of the table header columns -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaCBNV</td>
+                <td>@item.HoTen</td>
+                <td>@item.NgaySinh</td>
+                <td>@item.GioiTinh</td>
+                <td>@item.QueQuan</td>
+                <td>@item.NoiSinh</td>
+                <td>@item.SoCMND</td>
+                <td>@item.HoKhau</td>
+                <td>@item.DiaChi</td>
+                <td>@item.QuocTich</td>
+                <td>@item.DanToc</td>
+                <td>@item.TonGiao</td>
+                <td>@item.TrinhDoVanHoa</td>
+                <td>@item.DienThoai</td>
+                <td>@item.Email</td>
+                <td>@item.NgayVaoTruong</td>
+                <td>@item.ThamNienCongTac</td>
+
+
+                <!-- Add the rest of the table data columns -->
+            </tr>
+        }
+    </tbody>
+</table>
+
+<table class="table">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QueQuan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoKhau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuocTich)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DanToc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TonGiao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrinhDoVanHoa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayVaoTruong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThamNienCongTac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoCMND)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoiSinh)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaCBNV }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaCBNV }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaCBNV })
+            </td>
+        </tr>
+    }
+
+</table>

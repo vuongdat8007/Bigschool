@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "CBNV Management";
+}
+
+<h2 class="mt-2">CBNV Management</h2>
+<div class="table-responsive">
+    <table id="cbnvTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Mã CBNV</th>
+                <th>Họ Tên</th>
+                <th>Ngày Sinh</th>
+                <th>Nơi Sinh</th>
+                <th>Giới Tính</th>
+                <th>Quê Quán</th>
+                <th>Số CMND/CCCD</th>
+                <th>Hộ Khẩu thường trú</th>
+                <th>Địa chỉ hiện tại</th>
+                <th>Quốc Tịch</th>
+                <th>Dân Tộc</th>
+                <th>Tôn Giáo</th>
+                <th>Trình Độ Văn Hóa</th>
+                <th>Số ĐT</th>
+                <th>Email</th>
+                <th>Ngày Vào Trường</th>
+                <th>Thâm Niên Công Tác</th>
+                <!-- Add other fields as needed -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<button id="addNewCBNV" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cbnvModal">Add New CBNV</button>
+
+    <!-- Modal for adding/editing a CBNV -->
+    <div class="modal fade" id="cbnvModal" tabindex="-1" role="dialog" aria-labelledby="cbnvModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cbnvModalLabel">Add/Edit CBNV</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="cbnvForm">
+                        <input type="hidden" id="cbnvId" />
+                        <div class="input-container">
+                            <input type="text" class="form-control" id="hoTen" required />
+                            <label for="hoTen">Họ Tên</label>
+                        </div>
+                        <div class="input-container">
+                            <input type="date" class="form-control" id="ngaySinh" required />
+                            <label for="ngaySinh">Ngày Sinh</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="noiSinh" required /><label for="noiSinh">Nơi Sinh</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="gioiTinh" required /><label for="gioiTinh">Giới Tính</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="queQuan" required /><label for="queQuan">Quê Quán</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="soCMND" required /><label for="soCMND">Số CMND/CCCD</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="hoKhau" required /><label for="hoKhau">Hộ Khẩu</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="diaChi" required /><label for="diaChi">Địa Chỉ</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="quocTich" required /><label for="quocTich">Quốc Tịch</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="danToc" required /><label for="danToc">Dân Tộc</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="tonGiao" required /><label for="tonGiao">Tôn Giáo</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="trinhDoVanHoa" required /><label for="trinhDoVanHoa">Trình Độ Văn Hóa</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="dienThoai" required /><label for="dienThoai">Số ĐT</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="email" required /><label for="email">Email</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="ngayVaoTruong" required /><label for="ngayVaoTruong">Ngày Vào Trường</label>
+                        </div>
+                        <div class="input-container">
+                            
+                            <input type="text" class="form-control" id="thamNienCongTac" required /><label for="thamNienCongTac">Thâm Niên Công Tác</label>
+                        </div>
+                        <!-- Add other fields as needed -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="saveCBNV" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="~/Scripts/app/cbnv.js"></script>
+    }
