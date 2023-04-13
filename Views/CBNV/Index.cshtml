@@ -1,113 +1,136 @@
 ﻿@{
     ViewBag.Title = "CBNV Management";
 }
-
-<h2 class="mt-2">CBNV Management</h2>
-<div class="table-responsive">
-    <table id="cbnvTable" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Mã CBNV</th>
-                <th>Họ Tên</th>
-                <th>Ngày Sinh</th>
-                <th>Nơi Sinh</th>
-                <th>Giới Tính</th>
-                <th>Quê Quán</th>
-                <th>Số CMND/CCCD</th>
-                <th>Hộ Khẩu thường trú</th>
-                <th>Địa chỉ hiện tại</th>
-                <th>Quốc Tịch</th>
-                <th>Dân Tộc</th>
-                <th>Tôn Giáo</th>
-                <th>Trình Độ Văn Hóa</th>
-                <th>Số ĐT</th>
-                <th>Email</th>
-                <th>Ngày Vào Trường</th>
-                <th>Thâm Niên Công Tác</th>
-                <!-- Add other fields as needed -->
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-<button id="addNewCBNV" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cbnvModal">Add New CBNV</button>
-
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">CBNV Management</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="cbnvTable" class="table table-bordered table-striped" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã CBNV</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Nơi Sinh</th>
+                        <th>Giới Tính</th>
+                        <th>Quê Quán</th>
+                        <th>Số CMND/CCCD</th>
+                        <th>Hộ Khẩu thường trú</th>
+                        <th>Địa chỉ hiện tại</th>
+                        <th>Quốc Tịch</th>
+                        <th>Dân Tộc</th>
+                        <th>Tôn Giáo</th>
+                        <th>Trình Độ Văn Hóa</th>
+                        <th>Số ĐT</th>
+                        <th>Email</th>
+                        <th>Ngày Vào Trường</th>
+                        <th>Thâm Niên Công Tác</th>
+                        <!-- Add other fields as needed -->
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <button id="addNewCBNV" class="btn btn-primary" data-toggle="modal" data-target="#cbnvModal">Add New CBNV</button>
+        </div>
+    </div>
     <!-- Modal for adding/editing a CBNV -->
+    <style>
+        .input-container {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+            .input-container input {
+                padding: 0.75rem 0.75rem 0.75rem 0.25rem;
+            }
+
+            .input-container label {
+                position: absolute;
+                top: 0;
+                left: 0.75rem;
+                padding: 0 0.25rem;
+                background-color: #fff;
+                transform: translateY(-50%);
+            }
+    </style>
     <div class="modal fade" id="cbnvModal" tabindex="-1" role="dialog" aria-labelledby="cbnvModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="cbnvModalLabel">Add/Edit CBNV</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="cbnvForm">
                         <input type="hidden" id="cbnvId" />
                         <div class="input-container">
                             <input type="text" class="form-control" id="hoTen" required />
-                            <label for="hoTen">Họ Tên</label>
+                            <label for="hoTen" class="text-gray-700">Họ Tên</label>
                         </div>
                         <div class="input-container">
                             <input type="date" class="form-control" id="ngaySinh" required />
-                            <label for="ngaySinh">Ngày Sinh</label>
+                            <label for="ngaySinh" class="text-gray-700">Ngày Sinh</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="noiSinh" required /><label for="noiSinh">Nơi Sinh</label>
+
+                            <input type="text" class="form-control" id="noiSinh" required /><label for="noiSinh" class="text-gray-700">Nơi Sinh</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="gioiTinh" required /><label for="gioiTinh">Giới Tính</label>
+
+                            <input type="text" class="form-control" id="gioiTinh" required /><label for="gioiTinh" class="text-gray-700">Giới Tính</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="queQuan" required /><label for="queQuan">Quê Quán</label>
+
+                            <input type="text" class="form-control" id="queQuan" required /><label for="queQuan" class="text-gray-700">Quê Quán</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="soCMND" required /><label for="soCMND">Số CMND/CCCD</label>
+
+                            <input type="text" class="form-control" id="soCMND" required /><label for="soCMND" class="text-gray-700">Số CMND/CCCD</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="hoKhau" required /><label for="hoKhau">Hộ Khẩu</label>
+
+                            <input type="text" class="form-control" id="hoKhau" required /><label for="hoKhau" class="text-gray-700">Hộ Khẩu</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="diaChi" required /><label for="diaChi">Địa Chỉ</label>
+
+                            <input type="text" class="form-control" id="diaChi" required /><label for="diaChi" class="text-gray-700">Địa Chỉ</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="quocTich" required /><label for="quocTich">Quốc Tịch</label>
+
+                            <input type="text" class="form-control" id="quocTich" required /><label for="quocTich" class="text-gray-700">Quốc Tịch</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="danToc" required /><label for="danToc">Dân Tộc</label>
+
+                            <input type="text" class="form-control" id="danToc" required /><label for="danToc" class="text-gray-700">Dân Tộc</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="tonGiao" required /><label for="tonGiao">Tôn Giáo</label>
+
+                            <input type="text" class="form-control" id="tonGiao" required /><label for="tonGiao" class="text-gray-700">Tôn Giáo</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="trinhDoVanHoa" required /><label for="trinhDoVanHoa">Trình Độ Văn Hóa</label>
+
+                            <input type="text" class="form-control" id="trinhDoVanHoa" required /><label for="trinhDoVanHoa" class="text-gray-700">Trình Độ Văn Hóa</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="dienThoai" required /><label for="dienThoai">Số ĐT</label>
+
+                            <input type="text" class="form-control" id="dienThoai" required /><label for="dienThoai" class="text-gray-700">Số ĐT</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="email" required /><label for="email">Email</label>
+
+                            <input type="text" class="form-control" id="email" required /><label for="email" class="text-gray-700">Email</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="ngayVaoTruong" required /><label for="ngayVaoTruong">Ngày Vào Trường</label>
+
+                            <input type="text" class="form-control" id="ngayVaoTruong" required /><label for="ngayVaoTruong" class="text-gray-700">Ngày Vào Trường</label>
                         </div>
                         <div class="input-container">
-                            
-                            <input type="text" class="form-control" id="thamNienCongTac" required /><label for="thamNienCongTac">Thâm Niên Công Tác</label>
+
+                            <input type="text" class="form-control" id="thamNienCongTac" required /><label for="thamNienCongTac" class="text-gray-700">Thâm Niên Công Tác</label>
                         </div>
                         <!-- Add other fields as needed -->
                     </form>
@@ -122,4 +145,5 @@
 
     @section Scripts {
         <script src="~/Scripts/app/cbnv.js"></script>
+
     }

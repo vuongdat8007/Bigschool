@@ -1,40 +1,15 @@
 ﻿$(document).ready(function () {
-    //fetchCBNVs();
-    // Init datatable
-    /*fetchCBNVs().then(function () {
-        // Initialize the DataTable after the fetchCBNVs() function has completed
-        $('#cbnvTable').DataTable({
-            dom: 'Bfrtip',
-            responsive: true,
-            fixedHeader: true,
-            colReorder: true,
-            //autoFill: true,
-            scroller: true,
-            //searchPanes: true,
-            buttons: [
-                'copy', 'print', 'excel', 'pdf', 'csv'
-            ],
-            });
-    }).catch(function () {
-            console.error("Error initializing DataTable after fetching CBNVs");
-    });*/
-
     $(window).scroll(function () {
         var scrollTop = $(window).scrollTop();
         var imgPos = scrollTop / 2 + 'px';
         $('.background').css('background-position', 'center ' + imgPos);
     });
-
+    var cbnvTable;
     $.when(fetchCBNVs()).done(function () {
-        $('#cbnvTable').DataTable({
-            dom: 'Bfrtip',
+        cbnvTable = $('#cbnvTable').DataTable({
+            dom: 'Blfrtip',
             responsive: true,
-            fixedHeader: true,
-            colReorder: true,
-            scroller: true,
-            buttons: [
-                'copy', 'print', 'excel', 'pdf', 'csv'
-            ],
+            deferRender: true,
         });
     }).fail(function () {
         console.error("Error initializing DataTable after fetching CBNVs");
@@ -52,14 +27,34 @@
         }
     });
 
-    $("#cbnvTable").on("click", ".editCBNV", function () {
-        var id = $(this).data("id");
+    $('#cbnvTable').on('click', '.editCBNV', function () {
+        var tr = $(this).closest('tr');
+        var row = cbnvTable.rows(tr).eq(0);
+        var rowData = row.data();
+        console.log(rowData[0][0]); // Log the rowData to see its structure
+
+        // If rowData is still undefined, try accessing the hidden row data
+        if (rowData === undefined) {
+            rowData = cbnvTable.row(tr.prev()).data();
+            //console.log("aaa" + rowData); // Log the rowData again to see its structure
+        }
+        var id = rowData[0][0]; // Because of responsive mode, data stored in an array
         getCBNVById(id);
         $("#cbnvModalLabel").text("Edit CBNV");
     });
 
     $("#cbnvTable").on("click", ".deleteCBNV", function () {
-        var id = $(this).data("id");
+        var tr = $(this).closest('tr');
+        var row = cbnvTable.rows(tr).eq(0);
+        var rowData = row.data();
+        console.log(rowData[0][0]); // Log the rowData to see its structure
+
+        // If rowData is still undefined, try accessing the hidden row data
+        if (rowData === undefined) {
+            rowData = cbnvTable.row(tr.prev()).data();
+            //console.log("aaa" + rowData); // Log the rowData again to see its structure
+        }
+        var id = rowData[0][0]; // Because of responsive mode, data stored in an array
         deleteCBNV(id);
     });
     $("#saveCBNV").on("click", function () {
@@ -68,62 +63,7 @@
             saveCBNV();
         }
     });
-
-    $("#cbnvTable").on("click", ".editCBNV", function () {
-        var id = $(this).data("id");
-        getCBNVById(id);
-        $("#cbnvModalLabel").text("Edit CBNV");
-    });
-
-    $("#cbnvTable").on("click", ".deleteCBNV", function () {
-        var id = $(this).data("id");
-        deleteCBNV(id);
-    });
 });
-
-/*function fetchCBNVs() {
-    $.ajax({
-        url: "/api/CBNV",
-        type: "GET",
-        dataType: "json",
-        success: function (data) {
-            var tbody = $("#cbnvTable tbody");
-            tbody.empty();
-            for (var i = 0; i < data.length; i++) {
-                var cbnv = data[i];
-                var row = createCBNVRow(cbnv);
-                tbody.append(row);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching CBNVs:", status, error);
-        }
-    });
-};*/
-
-/*function fetchCBNVs() {
-    return new Promise(function (resolve, reject) {
-        $.ajax({
-            url: "/api/CBNV",
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-                var tbody = $("#cbnvTable tbody");
-                tbody.empty();
-                for (var i = 0; i < data.length; i++) {
-                    var cbnv = data[i];
-                    var row = createCBNVRow(cbnv);
-                    tbody.append(row);
-                }
-                resolve(); // Resolve the promise after the data has been fetched and processed
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching CBNVs:", status, error);
-                reject(); // Reject the promise if an error occurs during the AJAX request
-            }
-        });
-    });
-}*/
 
 function fetchCBNVs() {
     return $.ajax({
