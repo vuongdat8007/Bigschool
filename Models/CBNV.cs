@@ -27,5 +27,10 @@ namespace Bigschool_TH_11.Models
         public DateTime NgayVaoTruong { get; set; }
         public int ThamNienCongTac { get; set; }
         public string SoCMND { get; set; }
+        // Navigation property for the related ChuyenNganhs table
+        public virtual ICollection<CBNVChuyenNganh> CBNVChuyenNganhs { get; set; }
+
+        //public virtual ICollection<BankingInfo> BankingInfos { get; set; }
+        public virtual BankingInfo BankingInfo { get; set; }
     }
 }

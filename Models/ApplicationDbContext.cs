@@ -16,6 +16,7 @@ namespace Bigschool_TH_11.Models
         public DbSet<Following> Followings { get; set; }
 
         public DbSet<CBNV> CBNVs { get; set; }
+        public DbSet<BankingInfo> BankingInfos { get; set; }
         public DbSet<HopDong> HopDongs { get; set; }
         public DbSet<ChuyenNganh> ChuyenNganhs { get; set; }
         public DbSet<PhongBan> PhongBans { get; set; }
@@ -25,6 +26,8 @@ namespace Bigschool_TH_11.Models
         public DbSet<QuyenTruyCap> QuyenTruyCaps { get; set; }
         public DbSet<ChucNang> ChucNangs { get; set; }
         public DbSet<CBNVChuyenNganh> CBNVChuyenNganhs { get; set; }
+
+        public DbSet<BangCapCBNVChuyenNganh> BangCapCBNVChuyenNganhs { get; set; }
         public DbSet<HopDongCBNV> HopDongCBNVs { get; set; }
         public DbSet<ChucVuQuyenTruyCap> ChucVuQuyenTruyCaps { get; set; }
 
@@ -40,6 +43,11 @@ namespace Bigschool_TH_11.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            /*modelBuilder.Entity<CBNV>()
+                .HasOptional(c => c.BankingInfo) // The relationship is optional
+                .WithRequired(b => b.CBNV) // Each BankingInfo must have a CBNV
+                .WillCascadeOnDelete(true); // Enable cascade delete*/
+
             modelBuilder.Entity<Attendance>()
                 .HasRequired(a => a.Course)
                 .WithMany()

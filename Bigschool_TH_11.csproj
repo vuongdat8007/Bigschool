@@ -179,7 +179,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\BangCapCBNVChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CBNVController.cs" />
+    <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
     <Compile Include="Controllers\CBNVController.cs" />
@@ -229,14 +231,53 @@
     <Compile Include="Migrations\202304130239504_SeedData_CBNVs.designer.cs">
       <DependentUpon>202304130239504_SeedData_CBNVs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.cs" />
+    <Compile Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.designer.cs">
+      <DependentUpon>202304141722555_AddChuyenNghanhsToCBNVs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs" />
+    <Compile Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.designer.cs">
+      <DependentUpon>202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304151645265_AddBankingInfoModel.cs" />
+    <Compile Include="Migrations\202304151645265_AddBankingInfoModel.designer.cs">
+      <DependentUpon>202304151645265_AddBankingInfoModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.cs" />
+    <Compile Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.designer.cs">
+      <DependentUpon>202304161609414_UpdateCBNVBankingInfoRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.cs" />
+    <Compile Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.designer.cs">
+      <DependentUpon>202304171542072_UpdateFKBankingInfoCBNV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171557507_UpdateBankingInfoRelationship.cs" />
+    <Compile Include="Migrations\202304171557507_UpdateBankingInfoRelationship.designer.cs">
+      <DependentUpon>202304171557507_UpdateBankingInfoRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.cs" />
+    <Compile Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.designer.cs">
+      <DependentUpon>202304171603416_UpdateBankingInfoRelationship2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.cs" />
+    <Compile Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.designer.cs">
+      <DependentUpon>202304181518354_AddBangCapCBNVChuyenNganhModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304181714271_addGhiChuBangCap.cs" />
+    <Compile Include="Migrations\202304181714271_addGhiChuBangCap.designer.cs">
+      <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\BangCapCBNVChuyenNganh.cs" />
+    <Compile Include="Models\BankingInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CBNV.cs" />
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
+    <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
     <Compile Include="Models\ChucNang.cs" />
     <Compile Include="Models\ChucVu.cs" />
     <Compile Include="Models\ChucVuQuyenTruyCap.cs" />
@@ -597,6 +638,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304130239504_SeedData_CBNVs.resx">
       <DependentUpon>202304130239504_SeedData_CBNVs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.resx">
+      <DependentUpon>202304141722555_AddChuyenNghanhsToCBNVs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.resx">
+      <DependentUpon>202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304151645265_AddBankingInfoModel.resx">
+      <DependentUpon>202304151645265_AddBankingInfoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.resx">
+      <DependentUpon>202304161609414_UpdateCBNVBankingInfoRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.resx">
+      <DependentUpon>202304171542072_UpdateFKBankingInfoCBNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171557507_UpdateBankingInfoRelationship.resx">
+      <DependentUpon>202304171557507_UpdateBankingInfoRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.resx">
+      <DependentUpon>202304171603416_UpdateBankingInfoRelationship2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.resx">
+      <DependentUpon>202304181518354_AddBangCapCBNVChuyenNganhModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304181714271_addGhiChuBangCap.resx">
+      <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
