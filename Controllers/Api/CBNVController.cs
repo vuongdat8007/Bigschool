@@ -24,14 +24,29 @@ namespace Bigschool_TH_11.Controllers.Api
             return db.CBNVs;
         }*/
         // GET: api/CBNV
-        public IQueryable<CBNVViewModel> GetCBNVs()
+        public IEnumerable<CBNVViewModel> GetCBNVs()
         {
-            return db.CBNVs.Include(c => c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh)).Include(c => c.BankingInfo).Select(c => new CBNVViewModel
+            /*return db.CBNVs.Include(c => c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh)).Include(c => c.BankingInfo).Select(c => new CBNVViewModel
             {
                 CBNV = c,
                 BankingInfo = c.BankingInfo,
                 ChuyenNganhs = c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList()
-            });
+            });*/
+            using (var context = new ApplicationDbContext())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+
+                return context.CBNVs
+                    .Include(c => c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh))
+                    .Include(c => c.BankingInfo)
+                    .Select(c => new CBNVViewModel
+                    {
+                        CBNV = c,
+                        BankingInfo = c.BankingInfo,
+                        ChuyenNganhs = c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList()
+                    }).ToList();
+                    
+            }
         }
 
         // GET: api/CBNV/5

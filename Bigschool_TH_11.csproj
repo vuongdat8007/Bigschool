@@ -195,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Migrations\202303260912332_InitialModel.cs" />
     <Compile Include="Migrations\202303260912332_InitialModel.designer.cs">
       <DependentUpon>202303260912332_InitialModel.cs</DependentUpon>
@@ -277,6 +278,7 @@
     <Compile Include="Models\CBNV.cs" />
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
+    <Compile Include="Models\ViewModels\BangCapCBNVChuyenNganhViewModel.cs" />
     <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
     <Compile Include="Models\ChucNang.cs" />
     <Compile Include="Models\ChucVu.cs" />
@@ -308,8 +310,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\cbnv - Copy.js" />
     <Content Include="Scripts\app\cbnv.js" />
     <Content Include="Scripts\app\coursesController.js" />
+    <Content Include="Scripts\app\MyValidators.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Datatables\Buttons-2.3.6\css\common.scss" />

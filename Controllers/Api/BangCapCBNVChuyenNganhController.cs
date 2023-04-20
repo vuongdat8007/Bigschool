@@ -24,11 +24,35 @@ namespace Bigschool_TH_11.Controllers.Api
         }
 
         // GET: api/BangCapCBNVChuyenNganh/{cbnvId}
-        [ResponseType(typeof(BangCapCBNVChuyenNganh))]
+        [ResponseType(typeof(BangCapCBNVChuyenNganhViewModel))]
         public IHttpActionResult GetCertificatesByCBNV(string cbnvId)
         {
-            var certificates = db.BangCapCBNVChuyenNganhs.Where(x => x.CBNVId == cbnvId).ToList();
-            return Ok(certificates);
+            CBNV cbnv = db.CBNVs.Include(c => c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh)).SingleOrDefault(c => c.MaCBNV == cbnvId);
+
+            if (cbnv == null)
+            {
+                return NotFound();
+            }
+
+            var certificates = db.BangCapCBNVChuyenNganhs.Include(b => b.ChuyenNganh).Where(x => x.CBNVId == cbnv.MaCBNV).ToList();
+            var chuyenNganhs = cbnv.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList();
+
+            var viewModel = new BangCapCBNVChuyenNganhViewModel
+            {
+                CBNV = cbnv,
+                BangCapCBNVChuyenNganhs = certificates,
+                ChuyenNganhs = chuyenNganhs
+            };
+
+            // Debug information
+            var debugInfo = new
+            {
+                CBNV = cbnv,
+                CertificatesCount = certificates.Count,
+                ChuyenNganhsCount = chuyenNganhs.Count
+            };
+
+            return Ok(viewModel);
         }
 
         // POST: api/BangCapCBNVChuyenNganh

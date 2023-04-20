@@ -1,5 +1,17 @@
-﻿var cbnvTable, cbnvList, bangCapTable;;
+﻿var cbnvTable, cbnvList;
 $(document).ready(function () {
+    $.validator.addMethod("phoneVN", function (value, element) {
+        // Vietnamese phone number pattern
+        var pattern = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        return this.optional(element) || pattern.test(value);
+    }, "Please enter a valid VN phone number");
+
+    $.validator.addMethod("emailDomain", function (value, element) {
+        // Regular expression to match email with specific domain
+        var emailRegEx = /^[\w-]+(\.[\w-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$/;
+        return this.optional(element) || emailRegEx.test(value);
+    }, "Please enter a valid email address with the correct domain.");
+
     // Initialize the validation
     var validator = $("#cbnvForm").validate({
         onfocusout: function (element) {
@@ -48,8 +60,6 @@ $(document).ready(function () {
             $(element).addClass("is-valid").removeClass("is-invalid");
         },
         errorPlacement: function (error, element) {
-            /*error.addClass("invalid-feedback");
-            element.closest(".form-group").append(error);*/
             error.addClass("invalid-feedback");
             if (element.is("select")) {
                 error.insertAfter(element.next("label"));
@@ -69,21 +79,7 @@ $(document).ready(function () {
         $('.background').css('background-position', 'center ' + imgPos);
     });
 
-    /*$.when(fetchCBNVs(), fetchChuyenNganhs()).done(function () {
-        cbnvTable = $('#cbnvTable').DataTable({
-            dom: 'Blfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            responsive: true,
-            deferRender: true,
-        });
-    }).fail(function () {
-        console.error("Error initializing DataTable after fetching CBNVs");
-    });*/
-
     $.when(fetchCBNVs(), fetchChuyenNganhs()).done(function () {
-        //console.log(cbnvList);
         cbnvTable = $('#cbnvTable').DataTable({
             dom: 'Blfrtip',
             buttons: [
@@ -95,12 +91,7 @@ $(document).ready(function () {
             columns: [
                 { data: 'CBNV.MaCBNV' },
                 { data: 'CBNV.HoTen' },
-                {
-                    data: 'CBNV.NgaySinh',
-                    render: function (data, type, row) {
-                        return moment(data).format('DD-MM-YYYY');
-                    }
-                },
+                { data: 'CBNV.NgaySinh' },
                 { data: 'CBNV.NoiSinh' },
                 { data: 'CBNV.GioiTinh' },
                 { data: 'CBNV.QueQuan' },
@@ -128,12 +119,7 @@ $(document).ready(function () {
                 },
                 { data: 'CBNV.DienThoai' },
                 { data: 'CBNV.Email' },
-                {
-                    data: 'CBNV.NgayVaoTruong',
-                    render: function (data, type, row) {
-                        return moment(data).format('DD-MM-YYYY');
-                    }
-                },
+                { data: 'CBNV.NgayVaoTruong' },
                 { data: 'CBNV.ThamNienCongTac' },
                 // Add other fields as needed
                 {
@@ -190,15 +176,9 @@ $(document).ready(function () {
                         return '<button class="btn btn-warning btn-sm editCBNV" data-id="' + id + '">Edit</button> ' +
                             '<button class="btn btn-danger btn-sm deleteCBNV" data-id="' + id + '">Delete</button>' +
                             "<br class='d-md-none' />" +
-                            "<button class='btn btn-primary btn-sm ml-2 bangCapCBNV' data-id='" + id + "' onclick='openBangCapModal(" + id + ")'>Q.Lý Bằng Cấp</button>";
+                            "<button class='btn btn-primary btn-sm ml-2' onclick='openBangCapModal(`${id}`)'>Q.Lý Bằng Cấp</button>";
                     }
                 }
-                /*{ data: 'CBNV.BankingInfos[0].PaymentMethod', defaultContent: '-' },
-                { data: 'CBNV.BankingInfos[0].BankName', defaultContent: '-' },
-                { data: 'CBNV.BankingInfos[0].AccountNumber', defaultContent: '-' },
-                { data: 'CBNV.BankingInfos[0].AccountHolderName', defaultContent: '-' },
-                { data: 'CBNV.BankingInfos[0].Branch', defaultContent: '-' },
-                { data: 'CBNV.BankingInfos[0].SwiftCode', defaultContent: '-' },*/
             ],
             createdRow: function (row, data, dataIndex) {
                 // Set the ID attribute of the row element using the MaCBNV value from the data source
@@ -219,15 +199,12 @@ $(document).ready(function () {
         var row = cbnvTable.row(tr);
         var rowData = row.data();
 
-        //console.log(rowData); // Log the rowData to see its structure
-
         // If rowData is still undefined, try accessing the hidden row data
         if (rowData === undefined) {
             rowData = cbnvTable.row(tr.prev()).data();
-            //console.log("aaa" + rowData); // Log the rowData again to see its structure
         }
-        //var id = rowData[0]; // Because of responsive mode, data stored in an array
-        var id = rowData.CBNV.MaCBNV;
+        
+        var id = rowData.CBNV.MaCBNV; 
         getCBNVById(id);
         $("#cbnvModalLabel").text("Edit CBNV");
     });
@@ -237,36 +214,17 @@ $(document).ready(function () {
         var row = cbnvTable.row(tr);
         var rowData = row.data();
 
-        //console.log(rowData); // Log the rowData to see its structure
-
         // If rowData is still undefined, try accessing the hidden row data
         if (rowData === undefined) {
             rowData = cbnvTable.row(tr.prev()).data();
-            //console.log("aaa" + rowData); // Log the rowData again to see its structure
         }
-        //var id = rowData[0]; // Because of responsive mode, data stored in an array
+        
         var id = $(this).data('id');
         // Set the data-id attribute of the confirm delete button
         $('#confirmDelete').data({ 'id': id, 'row': row });
         // Show the delete confirmation modal
         $('#deleteConfirmModal').modal('show');
     });
-
-    /*validateCBNVForm();
-    $("#cbnvForm").on("submit", function (e) {
-        e.preventDefault(); // Prevent the default form submission
-        if ($(this).valid()) {
-            saveCBNV();
-        }
-    });*/
-
-    // Save button click handler
-    /*$("#saveCBNV").on("click", function () {
-        var isValid = validator.form(); // Check if the form is valid
-        if (isValid) {
-            saveCBNV(); // Call the saveCBNV function when the form is valid
-        }
-    });*/
 
     // Form submit handler
     $("#cbnvForm").off("submit").on("submit", function (event) {
@@ -290,25 +248,6 @@ $(document).ready(function () {
         var id = $(this).data('id');
         deleteCBNV(id);
     });
-
-    /* $("[name='quocTich']").select2({
-         placeholder: "Chọn quốc gia...",
-         width: '100%',
-         templateResult: function (country) {
-             if (!country.id) {
-                 return country.text;
-             }
-             return $(
-                 "<span><i class=\"fi fi-" + country.id.toLowerCase() + "\"></i> " + country.text + "</span>"
-             );
-         },
-         templateSelection: function (country) {
-             return $(
-                 "<span><i class=\"fi fi-" + country.id.toLowerCase() + "\"></i> " + country.text + "</span>"
-             );
-         },
-         data: countriesDataSource,
-     });*/
 
     $('#cbnvModal').on('shown.bs.modal', function () {
         $('#quocTich').select2({
@@ -338,153 +277,30 @@ $(document).ready(function () {
     });
 
     $('select').on('select2-opening', function () {
-        var container = $(this).select2('container')
-        var position = $(this).select2('container').offset().top
-        var avail_height = $(window).height() - container.offset().top - container.outerHeight()
+        var container = $(this).select2('container');
+        var position = $(this).select2('container').offset().top;
+        var avail_height = $(window).height() - container.offset().top - container.outerHeight();
 
         // The 50 is a magic number here. I think this is the search box + other UI
         // chrome from select2?
-        $('ul.select2-results').css('max-height', (avail_height - 50) + px)
-    })
+        $('ul.select2-results').css('max-height', (avail_height - 50) + px);
+    });
 
     $("[name='bankName']").select2({
         placeholder: "Chọn ngân hàng...",
         data: vnBankNames,
     });
 
-    $('.bangCapCBNV').click(function () {
-        $type = $(this).data('type'); // this works as of jQuery 1.4.3, otherwise $(this).attr('data-type');
-
-        // do your handling here, using $type
-    });
-
-    // Event handler for #addNewBangCap - Thêm mới bằng cấp cho CBNV
-    $('#addNewBangCap').on('click', function () {
-        var certificate = {
-            CBNVId: $('#maCBNVBangCapModal').val(),
-            ChuyenNganhId: $('#chuyenNganhModal').val(),
-            TenBangCap: $('#tenBangCapModal').val(),
-            NgayCap: $('#ngayCapModal').val(),
-            TenTruong: $('#tenTruongModal').val(),
-            LoaiBang: $('#loaiBangModal').val(),
-            NamTotNghiep: $('#namTotNghiepModal').val(),
-            HinhThucDaoTao: $('#hinhThucDaoTaoModal').val(),
-            GhiChu: $('#ghiChuBangCapModal').val(),
-        };
-        addCertificate(certificate);
-    });
-
-
-
 });
 
 function openBangCapModal(cbnvId) {
     // Fetch the list of BangCapCBNVChuyenNganh records for the given CBNV
-    //var cbnvId = $(this).attr("data-id");
-    
     $.ajax({
-        url: '/api/BangCapCBNVChuyenNganh/GetCertificatesByCBNV/' + cbnvId.id ? cbnvId.id : cbnvId,
+        url: '/api/BangCapCBNVChuyenNganh/' + cbnvId,
         type: "GET",
-        success: function (dataReceived) {
+        success: function (data) {
             // Add your logic to render the list of BangCapCBNVChuyenNganh records in the modal or inline form
-            if (bangCapTable) {
-                // $("#myDataTable").DataTable().clear().draw();
-                // $("#myDataTable").DataTable().destroy();
-                bangCapTable.clear().draw();
-                bangCapTable.destroy();
-            }
-            bangCapTable = $('#bangCapTable').DataTable({
-                dom: 'Bfrti',
-                responsive: true,
-                deferRender: true,
-                data: dataReceived.BangCapCBNVChuyenNganhs, // Add the data source
-                columns: [
-                    { data: 'ChuyenNganh.MaChuyenNganh' },
-                    { data: 'ChuyenNganh.TenChuyenNganh' },
-                    { data: 'Id' },
-                    { data: 'TenBangCap' },
-                    {
-                        data: 'NgayCap',
-                        render: function (data, type, row) {
-                            return moment(data).format('DD-MM-YYYY');
-                        }
-                    },
-                    { data: 'TenTruong' },
-                    { data: 'LoaiBang' },
-                    {
-                        data: 'NamTotNghiep',
-                        render: function (data, type, row) {
-                            return moment(data).format('DD-MM-YYYY');
-                        }
-                    },
-                    { data: 'HinhThucDaoTao' },
-                    { data: 'GhiChu' },
-                ],
-                createdRow: function (row, data, dataIndex) {
-                    // Set the ID attribute of the row element using the MaCBNV value from the data source
-                    row.id = data.id;
-                },
-                buttons: [
-                    {
-                        text: 'Edit',
-                        action: function () {
-                            var rows = bangCapTable.rows({ selected: true });
-                            var count = rows.count();
-                            if (count === 1) {
-                                // TODO: update BangCap
-                                var data = rows.data();
-                                $('#maBangCapModal').val(data[0].Id)
-                                $('#chuyenNganhModal').val(data[0].ChuyenNganhId)
-                                $('#tenBangCapModal').val(data[0].TenBangCap)
-                                $('#ngayCapModal').val(moment(data[0].NgayCap).format("YYYY-MM-DD"));
-                                $('#tenTruongModal').val(data[0].TenTruong);
-                                $('#loaiBangModal').val(data[0].LoaiBang);
-                                $('#namTotNghiepModal').val(moment(data[0].NamTotNghiep).format("YYYY-MM-DD"));
-                                $('#hinhThucDaoTaoModal').val(data[0].HinhThucDaoTao);
-                                $('#ghiChuBangCapModal').val(data[0].GhiChu);
-
-                                // Disable Add new button, Enable SaveChanges button
-                                $('#addNewBangCap').prop("disabled", true);
-                                $('#saveBangCapChanges').prop("disabled", false)
-                            } else if (count === 0) {
-                                alert('Vui lòng chọn 1 hàng trong bảng để Edit!');
-                                //do nothing
-                            } else {
-                                alert('Không thể edit nhiều Bằng cấp cùng lúc! Vui lòng chỉ chọn 1 hàng!');
-                            }
-                        }
-                    },
-                    {
-                        text: 'Delete',
-                        action: function () {
-                            var rows = bangCapTable.rows({ selected: true });
-                            var count = rows.count();
-                            if (count > 0) {
-                                var data = rows.data();
-                                for (var i = 0; i < data.length; i++) {
-                                    //console.log(data[i])
-                                    deleteCertificate(data[i].Id)
-                                }
-                            } else {
-                                alert('Hãy chọn 1 hoặc nhiều dòng dữ liệu muốn xoá!')
-                            }
-                        }
-                    }
-                ],
-            });
-            $('#maCBNVBangCapModal').val(cbnvId.id)
-            $('#maBangModal').val(); // clear id BangCap
-            $('#addNewBangCap').data('id', cbnvId.id);
-            var selectCN = $("#chuyenNganhModal");
-            selectCN.empty();
-            for (var i = 0; i < dataReceived.ChuyenNganhs.length; i++) {
-                var chuyenNganh = dataReceived.ChuyenNganhs[i];
-                var option = $("<option></option>")
-                    .val(chuyenNganh.MaChuyenNganh)
-                    .text(chuyenNganh.TenChuyenNganh);
-                selectCN.append(option);
-            }
-            
+            console.log(data);
         },
         error: function (error) {
             console.error("Error fetching data:", error);
@@ -494,7 +310,6 @@ function openBangCapModal(cbnvId) {
     // Show the modal or inline form
     $("#bangCapModal").modal("show");
 };
-
 
 
 function fetchCertificates(cbnvId) {
@@ -520,12 +335,6 @@ function addCertificate(certificate) {
         data: JSON.stringify(certificate),
         success: function (data) {
             // Update the table with the new data
-            $("#bangCapModal").modal("hide");
-            openBangCapModal($('#maCBNVBangCapModal').data('id'));
-            //TODO: Update table with approriate way other than close and re-open table to reload
-
-            $('#saveBangCapChanges').prop("disabled", true)
-            clearBangCapForm();
         },
         error: function (error) {
             console.error('Error adding certificate:', error);
@@ -542,9 +351,6 @@ function updateCertificate(certificate) {
         data: JSON.stringify(certificate),
         success: function (data) {
             // Update the table with the updated data
-            $("#bangCapModal").modal("hide");
-            openBangCapModal(certificate.CBNVId);
-            //TODO: Update table with approriate way other than close and re-open table to reload
         },
         error: function (error) {
             console.error('Error updating certificate:', error);
@@ -558,21 +364,13 @@ function deleteCertificate(id) {
         type: 'DELETE',
         success: function (data) {
             // Remove the deleted record from the table
-            // Update the table with the updated data
-            $("#bangCapModal").modal("hide");
-            openBangCapModal($('#maCBNVBangCapModal').data('id'));
-            //TODO: Update table with approriate way other than close and re-open table to reload
-
-            // Disable Add new button, Enable SaveChanges button
-            $('#addNewBangCap').prop("disabled", false);
-            $('#saveBangCapChanges').prop("disabled", true)
-            clearBangCapForm();
         },
         error: function (error) {
             console.error('Error deleting certificate:', error);
         }
     });
 };
+
 
 var countriesDataSource = [
     { id: 'CA', text: 'Canada' },
@@ -595,14 +393,6 @@ function fetchCBNVs() {
                 data[i].CBNV.QuocTich = $.fn.getTextFromCountryID(data[i].CBNV.QuocTich);
             }
             cbnvList = data;
-            /*var tbody = $("#cbnvTable tbody");
-            tbody.empty();
-            for (var i = 0; i < data.length; i++) {
-                var cbnv = data[i];
-                //console.log("Received cbnv:", cbnv);
-                var row = createCBNVRow(cbnv);
-                tbody.append(row);
-            }*/
         },
         error: function (xhr, status, error) {
             console.error("Error fetching CBNVs:", status, error);
@@ -640,12 +430,7 @@ function createCBNVRow(data) {
     }
     row.append($("<td></td>").text(cbnv.MaCBNV));
     row.append($("<td></td>").text(cbnv.HoTen));
-
-    /*// Create a new Date object from the date string
-    var ngaySinh = new Date(cbnv.NgaySinh);
-    // Convert the date to a string in the format "DD-MM-YYYY"
-    var ngaySinhString = formatDateToDDMMYYYY(ngaySinh);
-    row.append($("<td></td>").text(ngaySinhString));*/
+    
     // Use moment.js to parse and format the date string
     var ngaySinhString = moment(cbnv.NgaySinh).format('DD-MM-YYYY');
     row.append($("<td></td>").text(ngaySinhString));
@@ -673,12 +458,6 @@ function createCBNVRow(data) {
     row.append($("<td></td>").text(cbnv.DienThoai));
     row.append($("<td></td>").text(cbnv.Email));
 
-    /*// Create a new Date object from the date string
-    var ngayVaoTruong = new Date(cbnv.NgayVaoTruong);
-    // Convert the date to a string in the format "DD-MM-YYYY"
-    var ngayVaoTruongString = formatDateToDDMMYYYY(ngayVaoTruong);
-    row.append($("<td></td>").text(ngayVaoTruongString));*/
-
     // Use moment.js to parse and format the date string
     var ngayVaoTruongString = moment(cbnv.NgayVaoTruong).format('DD-MM-YYYY');
     row.append($("<td></td>").text(ngayVaoTruongString));
@@ -698,7 +477,7 @@ function createCBNVRow(data) {
         row.append($("<td></td>").text("-"));
         row.append($("<td></td>").text("-"));
     }
-
+    
     // Add other fields as needed
 
     var actions = $("<td></td>");
@@ -752,26 +531,14 @@ function clearCBNVForm() {
     // Clear other fields as needed
 };
 
-function clearBangCapForm() {
-    $('#chuyenNganhModal').val('');
-    $('#maBangCapModal').val('');
-    $('#tenBangCapModal').val('');
-    $('#ngayCapModal').val('');
-    $('#tenTruongModal').val('');
-    $('#loaiBangModal').val('');
-    $('#namTotNghiepModal').val('');
-    $('#hinhThucDaoTaoModal').val('');
-    $('#ghiChuBangCapModal').val('');
-}
-
 function getCBNVById(id) {
     $.ajax({
         url: "/api/CBNV/" + id,
         type: "GET",
         dataType: "json",
         success: function (dataraw) {
-            data = dataraw.CBNV;
-
+            var data = dataraw.CBNV;
+            
             $("#cbnvId").val(data.MaCBNV);
             $("#hoTen").val(data.HoTen);
 
@@ -780,7 +547,7 @@ function getCBNVById(id) {
 
             // Convert the adjusted date to a string in the format "DD-MM-YYYY"
             var ngaySinhString = ngaySinh.format("YYYY-MM-DD");
-
+            
             //console.log("aaaaa " + data.NgaySinh);
             $("#ngaySinh").val(ngaySinhString);
             $("#noiSinh").val(data.NoiSinh);
@@ -845,13 +612,13 @@ function saveCBNV() {
     var ngayVaoTruongFormatted = moment(ngayVaoTruong, "DD-MM-YYYY").format("YYYY-MM-DD");
 
     var bankingInfos = {
-        PaymentMethod: $("#paymentMethod").val(),
-        BankName: $("#bankName").val(),
-        AccountNumber: $("#accountNumber").val(),
-        AccountHolderName: $("#accountHolderName").val(),
-        Branch: $("#branch").val(),
-        SwiftCode: $("#swiftCode").val(),
-    };
+            PaymentMethod: $("#paymentMethod").val(),
+            BankName: $("#bankName").val(),
+            AccountNumber: $("#accountNumber").val(),
+            AccountHolderName: $("#accountHolderName").val(),
+            Branch: $("#branch").val(),
+            SwiftCode: $("#swiftCode").val(),
+        };
     var cbnv = {
         CBNV: {
             MaCBNV: $("#cbnvId").val(),
@@ -874,17 +641,13 @@ function saveCBNV() {
             BankingInfo: bankingInfos,
             ChuyenNganhs: chuyenNganhList
             // Set other fields as needed
-        },
-        ChuyenNganhs: chuyenNganhList,
+            },
+            ChuyenNganhs: chuyenNganhList,
     };
-    //cbnv.CBNV.BankingInfo = bankingInfos; // Send the bankingInfo object directly
+    
     cbnv.BankingInfo = bankingInfos; // Send the bankingInfo object directly
 
-    // Check that cbnv object has all required properties
-    /*if (!cbnv.MaCBNV || !cbnv.HoTen || !cbnv.NgaySinh || !cbnv.ChuyenNganhs) {
-        console.error("Error saving CBNV: Required properties are missing.");
-        return;
-    }*/
+    
 
     if (cbnv.CBNV.MaCBNV) {
         // Update existing CBNV
@@ -895,23 +658,12 @@ function saveCBNV() {
             contentType: "application/json",
             data: JSON.stringify(cbnv),
             success: function (data) {
-                // Redraw the DataTable with the updated data
-                /*fetchCBNVs().then(function () {
-                    cbnvTable.draw();
-                });
-
-                $("#cbnvModal").modal("hide");*/
-                //console.log("data: " + data.CBNV.MaCBNV);
-                // Remove the existing row from the DataTable
-                //var rowData = cbnvTable.row("#" + cbnv.CBNV.MaCBNV).data();
+                
                 cbnvTable.rows("#" + cbnv.CBNV.MaCBNV, "#" + cbnv.CBNV.MaCBNV + ' .child').remove().draw();
 
                 // Add the updated data as a new row and redraw the DataTable
-                //cbnvTable.row.add(data.CBNV).draw();
-                //var rowData = createCBNVRow(cbnv);
-                //console.log(cbnv);
                 cbnvTable.row.add(cbnv).draw();
-
+               
                 $("#cbnvModal").modal("hide");
             },
             error: function (xhr, status, error) {
@@ -928,9 +680,6 @@ function saveCBNV() {
             data: JSON.stringify(cbnv),
             success: function (data) {
                 // Redraw the DataTable with the updated data
-                /*fetchCBNVs().then(function () {
-                    cbnvTable.draw();;
-                });*/
                 cbnvTable.row.add(data).draw();
                 $("#cbnvModal").modal("hide");
             },
@@ -942,36 +691,26 @@ function saveCBNV() {
 };
 
 function deleteCBNV(id) {
-    //if (confirm("Are you sure you want to delete this CBNV?")) {  // Already have modal to confirm the delete action
-    $.ajax({
-        url: "/api/CBNV/" + id,
-        type: "DELETE",
-        dataType: "json",
-        success: function (data) {
-            // Destroy the existing DataTable
-            //$('#cbnvTable').destroy();
-
-            // Fetch the updated data and re-create the DataTable
-            fetchCBNVs().done(function (data) {
-                $('#deleteConfirmModal').modal('hide');
-                //$('#cbnvTable').dataTable().fnDraw();
-                //var row = $('#' + id);
-                //var subRow = row.next();
-                //cbnvTable.row($('#' + id)).remove().draw(); // remove single row doesnt work??
-                //cbnvTable.row($('#' + id).next()).remove().draw(); // remove single row doesnt work??
-                cbnvTable.rows(['#' + id, '#' + id + ' > .child']).remove().draw();
-            }).fail(function () {
-                console.error("Error initializing DataTable after fetching CBNVs");
-            });
-
-            //$('#deleteConfirmModal').modal('hide');
-            //$('#cbnvTable').dataTable().fnDeleteRow(row); // doesn't work
-
-        },
-        error: function (xhr, status, error) {
-            console.error("Error deleting CBNV:", status, error);
-        }
-    });
+    
+        $.ajax({
+            url: "/api/CBNV/" + id,
+            type: "DELETE",
+            dataType: "json",
+            success: function (data) {
+                
+                // Fetch the updated data and re-create the DataTable
+                fetchCBNVs().done(function (data) {
+                    $('#deleteConfirmModal').modal('hide');
+                    cbnvTable.rows(['#' + id, '#' + id + ' > .child']).remove().draw();
+                }).fail(function () {
+                    console.error("Error initializing DataTable after fetching CBNVs");
+                });
+                
+            },
+            error: function (xhr, status, error) {
+                console.error("Error deleting CBNV:", status, error);
+            }
+        });
     //}
 };
 
@@ -988,7 +727,7 @@ function formatDateToDDMMYYYY(date) {
     return day + '/' + month + '/' + year;
 };
 
-function validateCBNVForm() {
+/*function validateCBNVForm() {
     $("#cbnvForm").validate({
         onfocusout: function (element) {
             this.element(element);
@@ -1038,7 +777,7 @@ function validateCBNVForm() {
             element.closest(".form-group").append(error);
         }
     });
-};
+};*/
 
 function getPaymentMethodString(paymentMethodInt) {
     switch (paymentMethodInt) {
@@ -1063,5 +802,5 @@ $.fn.getTextFromCountryID = function (id) {
 };
 
 var vnBankNames = [
-    { id: "0", text: "......................................................." }, { id: "(CBBANK) Ngân hàng TMCP Xây Dựng", text: "(CBBANK) Ngân hàng TMCP Xây Dựng" }, { id: "(GPBANK) Ngân hàng TMCP Dầu Khí Toàn Cầu", text: "(GPBANK) Ngân hàng TMCP Dầu Khí Toàn Cầu" }, { id: "(OCEANBANK) Ngân hàng TMCP Đại Dương", text: "(OCEANBANK) Ngân hàng TMCP Đại Dương" }, { id: "(AGRIBANK) Ngân hàng TMCP Nông Nghiệp và Phát triển nông thôn Việt Nam", text: "(AGRIBANK) Ngân hàng TMCP Nông Nghiệp và Phát triển nông thôn Việt Nam" }, { id: "(Hong Leong Bank Vietnam) Ngân hàng 100% vốn nước ngoài", text: "(Hong Leong Bank Vietnam) Ngân hàng 100% vốn nước ngoài" }, { id: "(Public Bank) Ngân hàng 100% vốn nước ngoài", text: "(Public Bank) Ngân hàng 100% vốn nước ngoài" }, { id: "(ANZ) Ngân hàng ANZ Việt Nam", text: "(ANZ) Ngân hàng ANZ Việt Nam" }, { id: "(Hong Leong Bank) Hong Leong Bank Vietnam", text: "(Hong Leong Bank) Hong Leong Bank Vietnam" }, { id: "(Standard Chartered Bank) Standard Chartered Việt Nam", text: "(Standard Chartered Bank) Standard Chartered Việt Nam" }, { id: "(SHINHANBANK) Shinhan Bank Vietnam Limited – SHBVN", text: "(SHINHANBANK) Shinhan Bank Vietnam Limited – SHBVN" }, { id: "(HSBC) Hongkong-Shanghai Bank", text: "(HSBC) Hongkong-Shanghai Bank" }, { id: "(COOP BANK) Ngân hàng Hợp tác xã Việt Nam", text: "(COOP BANK) Ngân hàng Hợp tác xã Việt Nam" }, { id: "(VRB) Ngân hàng liên doanh Việt – Nga", text: "(VRB) Ngân hàng liên doanh Việt – Nga" }, { id: "(Indovina Bank) Ngân hàng TNHH Indovina", text: "(Indovina Bank) Ngân hàng TNHH Indovina" }, { id: "(VIETBANK) Ngân hàng TMCP Viet Nam Thương Tín", text: "(VIETBANK) Ngân hàng TMCP Viet Nam Thương Tín" }, { id: "(NCB) Ngân hàng TMCP Quốc Dân", text: "(NCB) Ngân hàng TMCP Quốc Dân" }, { id: "(PGBANK) Ngân hàng TMCP Xăng dầu Petrolimex", text: "(PGBANK) Ngân hàng TMCP Xăng dầu Petrolimex" }, { id: "(SAIGONBANK) Ngân hàng TMCP Sài Gòn Công Thương", text: "(SAIGONBANK) Ngân hàng TMCP Sài Gòn Công Thương" }, { id: "(BAOVIET BANK) Ngân hàng TMCP Bảo Việt", text: "(BAOVIET BANK) Ngân hàng TMCP Bảo Việt" }, { id: "(VIETCAPITAL) Ngân hàng TMCP Bản Việt", text: "(VIETCAPITAL) Ngân hàng TMCP Bản Việt" }, { id: "(KIENLONGBANK) Ngân hàng TMCP Kiên Long", text: "(KIENLONGBANK) Ngân hàng TMCP Kiên Long" }, { id: "(NAMABANK) Ngân hàng TMCP Nam Á", text: "(NAMABANK) Ngân hàng TMCP Nam Á" }, { id: "(VIETABANK) Ngân hàng TMCP Việt Á", text: "(VIETABANK) Ngân hàng TMCP Việt Á" }, { id: "(DONGABANK) Ngân hàng TMCP Đông Á", text: "(DONGABANK) Ngân hàng TMCP Đông Á" }, { id: "(BAC A BANK) Ngân hàng TMCP Bắc Á", text: "(BAC A BANK) Ngân hàng TMCP Bắc Á" }, { id: "(SEABANK) Ngân hàng TMCP Đông Nam Á", text: "(SEABANK) Ngân hàng TMCP Đông Nam Á" }, { id: "(ABBANK) Ngân hàng TMCP An Bình", text: "(ABBANK) Ngân hàng TMCP An Bình" }, { id: "(Lienviet Post Bank) Ngân hàng TMCP Liên Việt", text: "(Lienviet Post Bank) Ngân hàng TMCP Liên Việt" }, { id: "(OCB) Ngân hàng TMCP Phương Đông", text: "(OCB) Ngân hàng TMCP Phương Đông" }, { id: "(TPBANK) Ngân hàng TMCP Tiên Phong", text: "(TPBANK) Ngân hàng TMCP Tiên Phong" }, { id: "(TECHCOMBANK) Ngân hàng TMCP Kỹ Thương", text: "(TECHCOMBANK) Ngân hàng TMCP Kỹ Thương" }, { id: "(PVcomBank) Ngân hàng TMCP PVCombank", text: "(PVcomBank) Ngân hàng TMCP PVCombank" }, { id: "(VIB) Ngân hàng TMCP Quốc Tế", text: "(VIB) Ngân hàng TMCP Quốc Tế" }, { id: "(MSB) Ngân hàng TMCP Hàng Hải", text: "(MSB) Ngân hàng TMCP Hàng Hải" }, { id: "(HDBANK) Ngân hàng TMCP Phát Triển TP HCM", text: "(HDBANK) Ngân hàng TMCP Phát Triển TP HCM" }, { id: "(SHB) Ngân hàng TMCP Sài Gòn Hà Nội", text: "(SHB) Ngân hàng TMCP Sài Gòn Hà Nội" }, { id: "(EXIMBANK) Ngân hàng TMCP Xuất Nhập Khẩu", text: "(EXIMBANK) Ngân hàng TMCP Xuất Nhập Khẩu" }, { id: "(ACB) Ngân hàng TMCP Á Châu", text: "(ACB) Ngân hàng TMCP Á Châu" }, { id: "(SCB) Ngân hàng TMCP Sài Gòn", text: "(SCB) Ngân hàng TMCP Sài Gòn" }, { id: "(VPBANK) Ngân hàng TMCP Việt Nam Thịnh Vượng", text: "(VPBANK) Ngân hàng TMCP Việt Nam Thịnh Vượng" }, { id: "(MBBANK) Ngân hàng TMCP Quân Đội", text: "(MBBANK) Ngân hàng TMCP Quân Đội" }, { id: "(SACOMBANK) Ngân hàng TMCP Sài Gòn Thương Tín", text: "(SACOMBANK) Ngân hàng TMCP Sài Gòn Thương Tín" }, { id: "(VIETCOMBANK) Ngân hàng TMCP Ngoại thương", text: "(VIETCOMBANK) Ngân hàng TMCP Ngoại thương" }, { id: "(BIDV) Ngân hàng TMCP Đầu Tư Phát Triển Việt Nam", text: "(BIDV) Ngân hàng TMCP Đầu Tư Phát Triển Việt Nam" }, { id: "(VIETINBANK) Ngân hàng TMCP Công Thương", text: "(VIETINBANK) Ngân hàng TMCP Công Thương" }
+    { id: "0", text: "......................................................."}, {id: "(CBBANK) Ngân hàng TMCP Xây Dựng", text: "(CBBANK) Ngân hàng TMCP Xây Dựng" }, { id: "(GPBANK) Ngân hàng TMCP Dầu Khí Toàn Cầu", text: "(GPBANK) Ngân hàng TMCP Dầu Khí Toàn Cầu" }, { id: "(OCEANBANK) Ngân hàng TMCP Đại Dương", text: "(OCEANBANK) Ngân hàng TMCP Đại Dương" }, { id: "(AGRIBANK) Ngân hàng TMCP Nông Nghiệp và Phát triển nông thôn Việt Nam", text: "(AGRIBANK) Ngân hàng TMCP Nông Nghiệp và Phát triển nông thôn Việt Nam" }, { id: "(Hong Leong Bank Vietnam) Ngân hàng 100% vốn nước ngoài", text: "(Hong Leong Bank Vietnam) Ngân hàng 100% vốn nước ngoài" }, { id: "(Public Bank) Ngân hàng 100% vốn nước ngoài", text: "(Public Bank) Ngân hàng 100% vốn nước ngoài" }, { id: "(ANZ) Ngân hàng ANZ Việt Nam", text: "(ANZ) Ngân hàng ANZ Việt Nam" }, { id: "(Hong Leong Bank) Hong Leong Bank Vietnam", text: "(Hong Leong Bank) Hong Leong Bank Vietnam" }, { id: "(Standard Chartered Bank) Standard Chartered Việt Nam", text: "(Standard Chartered Bank) Standard Chartered Việt Nam" }, { id: "(SHINHANBANK) Shinhan Bank Vietnam Limited – SHBVN", text: "(SHINHANBANK) Shinhan Bank Vietnam Limited – SHBVN" }, { id: "(HSBC) Hongkong-Shanghai Bank", text: "(HSBC) Hongkong-Shanghai Bank" }, { id: "(COOP BANK) Ngân hàng Hợp tác xã Việt Nam", text: "(COOP BANK) Ngân hàng Hợp tác xã Việt Nam" }, { id: "(VRB) Ngân hàng liên doanh Việt – Nga", text: "(VRB) Ngân hàng liên doanh Việt – Nga" }, { id: "(Indovina Bank) Ngân hàng TNHH Indovina", text: "(Indovina Bank) Ngân hàng TNHH Indovina" }, { id: "(VIETBANK) Ngân hàng TMCP Viet Nam Thương Tín", text: "(VIETBANK) Ngân hàng TMCP Viet Nam Thương Tín" }, { id: "(NCB) Ngân hàng TMCP Quốc Dân", text: "(NCB) Ngân hàng TMCP Quốc Dân" }, { id: "(PGBANK) Ngân hàng TMCP Xăng dầu Petrolimex", text: "(PGBANK) Ngân hàng TMCP Xăng dầu Petrolimex" }, { id: "(SAIGONBANK) Ngân hàng TMCP Sài Gòn Công Thương", text: "(SAIGONBANK) Ngân hàng TMCP Sài Gòn Công Thương" }, { id: "(BAOVIET BANK) Ngân hàng TMCP Bảo Việt", text: "(BAOVIET BANK) Ngân hàng TMCP Bảo Việt" }, { id: "(VIETCAPITAL) Ngân hàng TMCP Bản Việt", text: "(VIETCAPITAL) Ngân hàng TMCP Bản Việt" }, { id: "(KIENLONGBANK) Ngân hàng TMCP Kiên Long", text: "(KIENLONGBANK) Ngân hàng TMCP Kiên Long" }, { id: "(NAMABANK) Ngân hàng TMCP Nam Á", text: "(NAMABANK) Ngân hàng TMCP Nam Á" }, { id: "(VIETABANK) Ngân hàng TMCP Việt Á", text: "(VIETABANK) Ngân hàng TMCP Việt Á" }, { id: "(DONGABANK) Ngân hàng TMCP Đông Á", text: "(DONGABANK) Ngân hàng TMCP Đông Á" }, { id: "(BAC A BANK) Ngân hàng TMCP Bắc Á", text: "(BAC A BANK) Ngân hàng TMCP Bắc Á" }, { id: "(SEABANK) Ngân hàng TMCP Đông Nam Á", text: "(SEABANK) Ngân hàng TMCP Đông Nam Á" }, { id: "(ABBANK) Ngân hàng TMCP An Bình", text: "(ABBANK) Ngân hàng TMCP An Bình" }, { id: "(Lienviet Post Bank) Ngân hàng TMCP Liên Việt", text: "(Lienviet Post Bank) Ngân hàng TMCP Liên Việt" }, { id: "(OCB) Ngân hàng TMCP Phương Đông", text: "(OCB) Ngân hàng TMCP Phương Đông" }, { id: "(TPBANK) Ngân hàng TMCP Tiên Phong", text: "(TPBANK) Ngân hàng TMCP Tiên Phong" }, { id: "(TECHCOMBANK) Ngân hàng TMCP Kỹ Thương", text: "(TECHCOMBANK) Ngân hàng TMCP Kỹ Thương" }, { id: "(PVcomBank) Ngân hàng TMCP PVCombank", text: "(PVcomBank) Ngân hàng TMCP PVCombank" }, { id: "(VIB) Ngân hàng TMCP Quốc Tế", text: "(VIB) Ngân hàng TMCP Quốc Tế" }, { id: "(MSB) Ngân hàng TMCP Hàng Hải", text: "(MSB) Ngân hàng TMCP Hàng Hải" }, { id: "(HDBANK) Ngân hàng TMCP Phát Triển TP HCM", text: "(HDBANK) Ngân hàng TMCP Phát Triển TP HCM" }, { id: "(SHB) Ngân hàng TMCP Sài Gòn Hà Nội", text: "(SHB) Ngân hàng TMCP Sài Gòn Hà Nội" }, { id: "(EXIMBANK) Ngân hàng TMCP Xuất Nhập Khẩu", text: "(EXIMBANK) Ngân hàng TMCP Xuất Nhập Khẩu" }, { id: "(ACB) Ngân hàng TMCP Á Châu", text: "(ACB) Ngân hàng TMCP Á Châu" }, { id: "(SCB) Ngân hàng TMCP Sài Gòn", text: "(SCB) Ngân hàng TMCP Sài Gòn" }, { id: "(VPBANK) Ngân hàng TMCP Việt Nam Thịnh Vượng", text: "(VPBANK) Ngân hàng TMCP Việt Nam Thịnh Vượng" }, { id: "(MBBANK) Ngân hàng TMCP Quân Đội", text: "(MBBANK) Ngân hàng TMCP Quân Đội" }, { id: "(SACOMBANK) Ngân hàng TMCP Sài Gòn Thương Tín", text: "(SACOMBANK) Ngân hàng TMCP Sài Gòn Thương Tín" }, { id: "(VIETCOMBANK) Ngân hàng TMCP Ngoại thương", text: "(VIETCOMBANK) Ngân hàng TMCP Ngoại thương" }, { id: "(BIDV) Ngân hàng TMCP Đầu Tư Phát Triển Việt Nam", text: "(BIDV) Ngân hàng TMCP Đầu Tư Phát Triển Việt Nam" }, { id: "(VIETINBANK) Ngân hàng TMCP Công Thương", text: "(VIETINBANK) Ngân hàng TMCP Công Thương" }
 ];

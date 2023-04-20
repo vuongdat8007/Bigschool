@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Bigschool_TH_11.Helpers
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -63,19 +64,19 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.ActiveMenu == "CBNV" ? "active bg-info" : "")">
                 <a class="nav-link" href="@Url.Action("Index", "CBNV")">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý CBNV</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.ActiveMenu == "About" ? "active bg-info" : "")">
                 <a class="nav-link" href="@Url.Action("About", "Home")">
                     <i class="fas fa-fw fa-table"></i>
                     <span>About</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.ActiveMenu == "CreateCourses" ? "active bg-info" : "")">
                 <a class="nav-link" href="@Url.Action("Create", "Courses")">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Add Course</span>
@@ -154,7 +155,7 @@
             </li>
 
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.ActiveMenu == "Charts" ? "active bg-info" : "")">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span>
@@ -162,7 +163,7 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span>

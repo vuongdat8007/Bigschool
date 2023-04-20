@@ -1,51 +1,7 @@
 ﻿@{
     ViewBag.Title = "CBNV Management";
+    ViewBag.ActiveMenu = "CBNV";
 }
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">CBNV Management</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table id="cbnvTable" class="table table-bordered table-striped table-dashboard fs--1 border-bottom border-200" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Mã CBNV</th>
-                        <th>Họ Tên</th>
-                        <th>Ngày Sinh</th>
-                        <th>Nơi Sinh</th>
-                        <th>Giới Tính</th>
-                        <th>Quê Quán</th>
-                        <th>Số CMND/CCCD</th>
-                        <th>Hộ Khẩu thường trú</th>
-                        <th>Địa chỉ hiện tại</th>
-                        <th>Quốc Tịch</th>
-                        <th>Dân Tộc</th>
-                        <th>Tôn Giáo</th>
-                        <th>Trình Độ Văn Hóa</th>
-                        <th>Chuyên Ngành</th>
-                        <th>Số ĐT</th>
-                        <th>Email</th>
-                        <th>Ngày Vào Trường</th>
-                        <th>Thâm Niên Công Tác</th>
-                        <!-- Add other fields as needed -->
-                        <th>Phương thức trả lương</th>
-                        <th>Tên Ngân Hàng</th>
-                        <th>Số TK</th>
-                        <th>Tên Chủ TK</th>
-                        <th>Chi Nhánh</th>
-                        <th>SwiftCode</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <button id="addNewCBNV" class="btn btn-primary" data-toggle="modal" data-target="#cbnvModal">Add New CBNV</button>
-    </div>
-</div>
-<!-- Modal for adding/editing a CBNV -->
 <style>
     .input-container {
         position: relative;
@@ -94,6 +50,51 @@
         width: 100% !important;
     }
 </style>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">CBNV Management</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="cbnvTable" class="table table-bordered table-striped table-dashboard fs--1 border-bottom border-200" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã CBNV</th>
+                        <th>Họ Tên</th>
+                        <th>Ngày Sinh</th>
+                        <th>Nơi Sinh</th>
+                        <th>Giới Tính</th>
+                        <th>Quê Quán</th>
+                        <th>Số CMND/CCCD</th>
+                        <th>Hộ Khẩu thường trú</th>
+                        <th>Địa chỉ hiện tại</th>
+                        <th>Quốc Tịch</th>
+                        <th>Dân Tộc</th>
+                        <th>Tôn Giáo</th>
+                        <th>Trình Độ Văn Hóa</th>
+                        <th>Chuyên Ngành</th>
+                        <th>Số ĐT</th>
+                        <th>Email</th>
+                        <th>Ngày Vào Trường</th>
+                        <th>Thâm Niên Công Tác</th>
+                        <!-- Add other fields as needed -->
+                        <th>Phương thức trả lương</th>
+                        <th>Tên Ngân Hàng</th>
+                        <th>Số TK</th>
+                        <th>Tên Chủ TK</th>
+                        <th>Chi Nhánh</th>
+                        <th>SwiftCode</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <button id="addNewCBNV" class="btn btn-primary" data-toggle="modal" data-target="#cbnvModal">Add New CBNV</button>
+    </div>
+</div>
+<!-- Modal for adding/editing a CBNV -->
 <!-- Modal box for Add/Edit CBNV -->
 <div class="modal fade" id="cbnvModal" tabindex="-1" role="dialog" aria-labelledby="cbnvModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -102,9 +103,6 @@
                 <h5 class="modal-title" id="cbnvModalLabel">Add/Edit CBNV</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-
-
-
             <div class="modal-body">
                 <form id="cbnvForm" onsubmit="event.preventDefault();">
                     <div class="container">
@@ -252,7 +250,7 @@
 </div>
 
 <!-- Modal for managing BangCapCBNVChuyenNganh records -->
-<div class="modal" id="bangCapModal" tabindex="-1" role="dialog">
+<div id="bangCapModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -262,17 +260,23 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="input-container">
+                    <label for="maCBNVBangCapModal" class="text-danger text-lg">MaCBNV:</label>
+                    <input type="text" class="text-danger text-lg text-center font-weight-bolder" id="maCBNVBangCapModal" disabled />
+                </div>
                 <div class="table-responsive">
                     <table id="bangCapTable" class="table table-bordered table-striped table-dashboard fs--1 border-bottom border-200" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>Mã CN</th>
+                                <th>Tên Chuyên Ngành</th>
+                                <th>ID</th>
                                 <th>Tên Bằng Cấp</th>
                                 <th>Ngày Cấp</th>
                                 <th>Tên Trường</th>
                                 <th>Loại Bằng</th>
                                 <th>Năm Tốt Nghiệp</th>
                                 <th>Hình Thức Đào Tạo</th>
-                                <th>Chuyên Ngành</th>
                                 <th>Ghi chú</th>
                             </tr>
                         </thead>
@@ -281,9 +285,13 @@
                     </table>
                 </div>
 
-                <div class="input-container p-2">
-                    <label class="text-gray-700">MaCBNV:</label>
-                    <span class="text-danger text-lg" id="maCBNVBangCapForm"></span>
+                <div class="input-container p-2 mt-3">
+                    <label for="chuyenNganhModal" class="text-gray-700">Chuyên Ngành (đã đăng ký với trường)</label>
+                    <select class="form-control" id="chuyenNganhModal" name="chuyenNganhModal"></select>
+                </div>
+                <div class="input-container">
+                    <label for="maBangCapModal" class="text-xs">Mã Bằng Cấp:</label>
+                    <input type="text" class="text-info text-lg text-center font-weight-bolder" id="maBangCapModal" disabled />
                 </div>
                 <div class="input-container">
                     <label for="tenBangCapModal" class="text-gray-700">Tên Bằng Cấp</label>
@@ -311,18 +319,22 @@
                 </div>
                 <div class="input-container">
                     <label for="ghiChuBangCapModal" class="text-gray-700">Ghi chú</label>
-                    <textarea class="form-control" id="ghiChuBangCapModal" name="ghiChuBangCapModal" />
+                    <textarea class="form-control" id="ghiChuBangCapModal" name="ghiChuBangCapModal" rows="2"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button id="addNewBangCap" class="btn btn-primary" data-toggle="modal" data-target="#bangCapModal">Thêm mới Bằng Cấp</button>
-                    <button type="button" class="btn btn-primary" onclick="saveBangCapChanges()">Save changes</button>
+                    <button id="saveBangCapChanges" type="button" class="btn btn-primary" onclick="saveBangCapChanges()">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
     </div>
 </div>
 
 
 @section Scripts {
+    <script src="~/Scripts/app/MyValidators.js"></script>
     <script src="~/Scripts/app/cbnv.js"></script>
+
 }
+
