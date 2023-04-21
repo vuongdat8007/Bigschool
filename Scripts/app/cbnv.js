@@ -381,9 +381,9 @@ $(document).ready(function () {
 function openBangCapModal(cbnvId) {
     // Fetch the list of BangCapCBNVChuyenNganh records for the given CBNV
     //var cbnvId = $(this).attr("data-id");
-    
+    var apiUrl = '/api/BangCapCBNVChuyenNganh/GetCertificatesByCBNV/' + (cbnvId.id ? cbnvId.id : cbnvId);
     $.ajax({
-        url: '/api/BangCapCBNVChuyenNganh/GetCertificatesByCBNV/' + cbnvId.id ? cbnvId.id : cbnvId,
+        url: apiUrl,
         type: "GET",
         success: function (dataReceived) {
             // Add your logic to render the list of BangCapCBNVChuyenNganh records in the modal or inline form

@@ -76,23 +76,23 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link @(ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fas fa-fw fa-lock"></i>
                     <span>Hành Chánh</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Chức Năng:</h6>
-                        <a class="collapse-item" href="login.html">Create</a>
-                        <a class="collapse-item" href="register.html">Index</a>
+                        <a class="collapse-item" href="@Url.Action("Create", "ChucNang")">Create</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "ChucNang")">Index</a>
                         <h6 class="collapse-header">Quyền Truy Cập:</h6>
-                        <a class="collapse-item" href="login.html">Create</a>
-                        <a class="collapse-item" href="register.html">Index</a>
+                        <a class="collapse-item" href="@Url.Action("Create", "QuyenTruyCap")">Create</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "QuyenTruyCap")">Index</a>
                         <h6 class="collapse-header">Chức Vụ:</h6>
-                        <a class="collapse-item" href="login.html">Create</a>
-                        <a class="collapse-item" href="register.html">Index</a>
-                        <a class="collapse-item" href="register.html">EditAssignedCBNVs</a>
+                        <a class="collapse-item" href="@Url.Action("Create", "ChucVu")">Create</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "ChucVu")">Index</a>
+                        <a class="collapse-item" href="@Url.Action("EditAssignedCBNVs", "ChucVu")">Edit Assigned CBNVs</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
