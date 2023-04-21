@@ -58,7 +58,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item @(ViewBag.ActiveMenu == "Home" ? "active bg-info" : "")">
+                ">
                 <a class="nav-link" href="@Url.Action("Index", "Home")">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -70,6 +71,39 @@
                     <span>Quản lý CBNV</span>
                 </a>
             </li>
+
+
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                   aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Hành Chánh</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Chức Năng:</h6>
+                        <a class="collapse-item" href="login.html">Create</a>
+                        <a class="collapse-item" href="register.html">Index</a>
+                        <h6 class="collapse-header">Quyền Truy Cập:</h6>
+                        <a class="collapse-item" href="login.html">Create</a>
+                        <a class="collapse-item" href="register.html">Index</a>
+                        <h6 class="collapse-header">Chức Vụ:</h6>
+                        <a class="collapse-item" href="login.html">Create</a>
+                        <a class="collapse-item" href="register.html">Index</a>
+                        <a class="collapse-item" href="register.html">EditAssignedCBNVs</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Addons
+            </div>
             <li class="nav-item @(ViewBag.ActiveMenu == "About" ? "active bg-info" : "")">
                 <a class="nav-link" href="@Url.Action("About", "Home")">
                     <i class="fas fa-fw fa-table"></i>

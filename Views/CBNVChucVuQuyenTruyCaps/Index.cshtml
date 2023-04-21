@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Bigschool_TH_11.Models.CBNV>
+
+@{
+    ViewBag.Title = "CBNV Chuc Vu and Quyen Truy Cap";
+    ViewBag.ActiveMenu = "IndexChucVuQuyenTruyCap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CBNV Chuc Vu and Quyen Truy Cap</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>CBNV</th>
+            <th>Chuc Vu</th>
+            <th>Quyen Truy Cap</th>
+            <th>Chuc Nang</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item?.HoTen</td>
+                <td>@item?.ChucVu?.TenChucVu</td>
+                <td>@item?.ChucVu?.QuyenTruyCap?.TenQuyen</td>
+                <td>@item?.ChucVu?.QuyenTruyCap?.ChucNang?.TenChucNang</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+﻿@model Bigschool_TH_11.ViewModels.ChucNangEditViewModel
+@{
+    ViewBag.Title = "Edit Chuc Nang";
+    ViewBag.ActiveMenu = "EditChucNang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Chuc Nang</h2>
+
+@using (Html.BeginForm("Save", "ChucNang"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.ChucNang.MaChucNang)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ChucNang.TenChucNang, "Ten Chuc Nang")
+        @Html.EditorFor(m => m.ChucNang.TenChucNang, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.ChucNang.TenChucNang, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", "ChucNang", null, new { @class = "btn btn-secondary" })
+}

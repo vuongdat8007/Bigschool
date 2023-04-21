@@ -32,5 +32,8 @@ namespace Bigschool_TH_11.Models
 
         //public virtual ICollection<BankingInfo> BankingInfos { get; set; }
         public virtual BankingInfo BankingInfo { get; set; }
+
+        public string MaChucVu { get; set; }
+        public ChucVu ChucVu { get; set; }
     }
 }

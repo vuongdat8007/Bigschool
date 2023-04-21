@@ -1,0 +1,29 @@
+﻿@model Bigschool_TH_11.ViewModels.EditAssignedCBNVsViewModel
+
+@{
+    ViewBag.Title = "Edit Assigned CBNVs for ChucVu";
+}
+
+<h2>Edit Assigned CBNVs for ChucVu @Model.ChucVu.TenChucVu</h2>
+
+@using (Html.BeginForm("UpdateAssignedCBNVs", "ChucVu"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ChucVu.MaChucVu)
+
+    <div class="form-group">
+        <label for="cbnvs">CBNVs:</label>
+        <select id="cbnvs" name="AssignedCBNVs" multiple class="form-control">
+            @if (Model.CBNVs.Any())
+            {
+                foreach (var cbnv in Model.CBNVs)
+                {
+                    <option value="@cbnv.MaCBNV" @(Model.ChucVu.CBNVs.Any(c => c.MaCBNV == cbnv.MaCBNV) ? "selected" : "")>@cbnv.HoTen</option>
+                }
+            }
+            </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", "ChucVu", null, new { @class = "btn btn-secondary" })
+}

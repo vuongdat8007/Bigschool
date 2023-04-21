@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Bigschool_TH_11.Models.QuyenTruyCap>
+@{
+    ViewBag.Title = "Quyen Truy Cap";
+    ViewBag.ActiveMenu = "IndexQuyenTruyCap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quyen Truy Cap</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaQuyen</td>
+            <td>@item.TenQuyen</td>
+            <td>
+                @Html.ActionLink("Edit", "QuyenTruyCap", new { id = item.MaQuyen }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
+</table>

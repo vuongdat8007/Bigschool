@@ -184,11 +184,15 @@
     <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\CBNVChucVuQuyenTruyCapsController.cs" />
     <Compile Include="Controllers\CBNVController.cs" />
+    <Compile Include="Controllers\ChucNangController.cs" />
+    <Compile Include="Controllers\ChucVuController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuyenTruyCapController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="DTOs\AttendanceDto.cs" />
     <Compile Include="DTOs\FollowingDto.cs" />
@@ -268,6 +272,10 @@
     <Compile Include="Migrations\202304181714271_addGhiChuBangCap.designer.cs">
       <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs" />
+    <Compile Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.designer.cs">
+      <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -279,6 +287,8 @@
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
     <Compile Include="Models\ViewModels\BangCapCBNVChuyenNganhViewModel.cs" />
+    <Compile Include="ViewModels\EditAssignedCBNVsViewModel.cs" />
+    <Compile Include="ViewModels\CBNVChucVuQuyenTruyCapViewModel.cs" />
     <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
     <Compile Include="Models\ChucNang.cs" />
     <Compile Include="Models\ChucVu.cs" />
@@ -295,10 +305,13 @@
     <Compile Include="Models\ThayDoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ChucNangEditViewModel.cs" />
+    <Compile Include="ViewModels\ChucVuEditViewModel.cs" />
     <Compile Include="ViewModels\CoursesViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\ManagementViewModel.cs" />
+    <Compile Include="ViewModels\QuyenTruyCapEditViewModel.cs" />
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -597,6 +610,19 @@
     <Content Include="Views\PartialViews\_CBNVPartial.cshtml" />
     <Content Include="Views\CBNV\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_test.cshtml" />
+    <Content Include="Views\CBNVChucVuQuyenTruyCaps\Edit.cshtml" />
+    <Content Include="Views\CBNVChucVuQuyenTruyCaps\Index.cshtml" />
+    <Content Include="Views\ChucVu\Edit.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Edit.cshtml" />
+    <Content Include="Views\ChucNang\Edit.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Index.cshtml" />
+    <Content Include="Views\ChucVu\Index.cshtml" />
+    <Content Include="Views\ChucNang\Index.cshtml" />
+    <Content Include="Views\ChucNang\Create.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Create.cshtml" />
+    <Content Include="Views\ChucVu\Create.cshtml" />
+    <Content Include="Views\ChucVu\AssignChucVu.cshtml" />
+    <Content Include="Views\ChucVu\EditAssignedCBNVs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -669,6 +695,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304181714271_addGhiChuBangCap.resx">
       <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.resx">
+      <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
