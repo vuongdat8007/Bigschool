@@ -123,7 +123,7 @@ namespace Bigschool_TH_11.Controllers
             {
                 PhongBan = new PhongBan(),
                 CBNVs = db.CBNVs.ToList(),
-                PhongBans = db.PhongBans.ToList()
+                PhongBans = db.PhongBans.Include(pb => pb.CBNVs).ToList() // Include the related CBNVs
             };
             return View(viewModel);
         }

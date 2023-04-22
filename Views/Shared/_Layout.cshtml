@@ -76,26 +76,30 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link @(ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-lock"></i>
                     <span>Hành Chánh</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Phòng Ban:</h6>
-                        <a class="collapse-item" href="@Url.Action("Create", "PhongBans")">Create</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "PhongBans")">Index</a>
-                        <a class="collapse-item" href="@Url.Action("AssignCBNVsToPhongBan", "PhongBans")">Assign CBNVs</a>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "PhongBans")" class="collapse-item @(ViewBag.ActiveSub == "Create" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "PhongBans")" class="collapse-item @(ViewBag.ActiveSub == "Index" ? "badge badge-secondary text-white" : "")">Index</a>
+                        <a href="@Url.Action("AssignCBNVsToPhongBan", "PhongBans")" class="collapse-item @(ViewBag.ActiveSub == "Assign" ? "badge badge-secondary text-white" : "")">Assign CBNVs</a>
                         <h6 class="collapse-header">Chức Năng:</h6>
-                        <a class="collapse-item" href="@Url.Action("Create", "ChucNang")">Create</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "ChucNang")">Index</a>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "ChucNang")" class="collapse-item @(ViewBag.ActiveSub == "CreateChucNang" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "ChucNang")" class="collapse-item @(ViewBag.ActiveSub == "IndexChucNang" ? "badge badge-secondary text-white" : "")">Index</a>
                         <h6 class="collapse-header">Quyền Truy Cập:</h6>
-                        <a class="collapse-item" href="@Url.Action("Create", "QuyenTruyCap")">Create</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "QuyenTruyCap")">Index</a>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "QuyenTruyCap")" class="collapse-item @(ViewBag.ActiveSub == "CreateQuyenTruyCap" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "QuyenTruyCap")" class="collapse-item @(ViewBag.ActiveSub == "IndexQuyenTruyCap" ? "badge badge-secondary text-white" : "")">Index</a>
                         <h6 class="collapse-header">Chức Vụ:</h6>
-                        <a class="collapse-item" href="@Url.Action("Create", "ChucVu")">Create</a>
-                        <a class="collapse-item" href="@Url.Action("Index", "ChucVu")">Index</a>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "ChucVu")" class="collapse-item @(ViewBag.ActiveSub == "CreateChucVu" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "ChucVu")" class="collapse-item @(ViewBag.ActiveSub == "IndexChucVu" ? "badge badge-secondary text-white" : "")">Index</a>
 
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
