@@ -65,7 +65,8 @@ namespace Bigschool_TH_11.Controllers.Api
             {
                 CBNV = cbnv,
                 BankingInfo = bankingInfo,
-                ChuyenNganhs = cbnv.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList()
+                ChuyenNganhs = cbnv.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList(),
+                PhongBan = cbnv.PhongBan // Add the related PhongBan to the ViewModel
             };
 
             return Ok(cbnvViewModel);
@@ -113,6 +114,16 @@ namespace Bigschool_TH_11.Controllers.Api
 
             // Update the CBNV entity
             db.Entry(existingCBNV).CurrentValues.SetValues(cbnvViewModel.CBNV);
+
+            // Update the PhongBan relationship
+            if (cbnvViewModel.PhongBan != null)
+            {
+                existingCBNV.MaPhongBan = cbnvViewModel.PhongBan.MaPhongBan;
+            }
+            else
+            {
+                existingCBNV.MaPhongBan = null;
+            }
 
             if (cbnvViewModel.BankingInfo != null)
             {
@@ -180,6 +191,12 @@ namespace Bigschool_TH_11.Controllers.Api
 
             // Generate the MaCBNV value
             cbnvViewModel.CBNV.MaCBNV = GenerateMaCBNV();
+
+            // Set the PhongBan relationship
+            if (cbnvViewModel.PhongBan != null)
+            {
+                cbnvViewModel.CBNV.MaPhongBan = cbnvViewModel.PhongBan.MaPhongBan;
+            }
 
             if (cbnvViewModel.BankingInfo != null)
             {

@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhongBanController.cs" />
     <Compile Include="Controllers\PhongBans1Controller.cs" />
+    <Compile Include="Controllers\PhongBansApiController.cs" />
     <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\QuyenTruyCapController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />

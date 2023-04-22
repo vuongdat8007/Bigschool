@@ -1,4 +1,4 @@
-﻿var cbnvTable, cbnvList, bangCapTable;;
+﻿var cbnvTable, cbnvList, bangCapTable, listPhongBan;
 $(document).ready(function () {
     // Initialize the validation
     var validator = $("#cbnvForm").validate({
@@ -82,7 +82,7 @@ $(document).ready(function () {
         console.error("Error initializing DataTable after fetching CBNVs");
     });*/
 
-    $.when(fetchCBNVs(), fetchChuyenNganhs()).done(function () {
+    $.when(fetchCBNVs(), fetchChuyenNganhs(), fetchPhongBans()).done(function () {
         //console.log(cbnvList);
         cbnvTable = $('#cbnvTable').DataTable({
             dom: 'Blfrtip',
@@ -136,6 +136,12 @@ $(document).ready(function () {
                 },
                 { data: 'CBNV.ThamNienCongTac' },
                 // Add other fields as needed
+                {
+                    data: 'CBNV.PhongBan',
+                    render: function (data, type, row) {
+                        return data ? data.TenPhongBan : "-";
+                    }
+                },
                 {
                     data: 'CBNV.BankingInfo',
                     render: function (data, type, row) {
@@ -495,7 +501,31 @@ function openBangCapModal(cbnvId) {
     $("#bangCapModal").modal("show");
 };
 
-
+function fetchPhongBans() {
+    $.ajax({
+        url: '/api/PhongBansApi',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            // Clear the table and populate it with the fetched data
+            listPhongBan = data;
+            var select = $("#phongBan");
+            select.empty();
+            var emptyPhongBan = $("<option></option>").val("").text("-----");
+            select.append(emptyPhongBan);
+            for (var i = 0; i < data.length; i++) {
+                var phongBan = data[i];
+                var option = $("<option></option>")
+                    .val(phongBan.MaPhongBan)
+                    .text(phongBan.TenPhongBan);
+                select.append(option);
+            }
+        },
+        error: function (error) {
+            console.error('Error fetching certificates:', error);
+        }
+    });
+};
 
 function fetchCertificates(cbnvId) {
     $.ajax({
@@ -743,6 +773,7 @@ function clearCBNVForm() {
     $("#email").val("");
     $("#ngayVaoTruong").val("");
     $("#thamNienCongTac").val("");
+    $('#phongBan').val('');
     $('#bankName').val('');
     $('#accountNumber').val('');
     $('#accountHolderName').val('');
@@ -808,7 +839,7 @@ function getCBNVById(id) {
             //console.log("data received: " + ngayVaoTruongString);
             $("#ngayVaoTruong").val(ngayVaoTruongString);
             $("#thamNienCongTac").val(data.ThamNienCongTac);
-
+            $("#phongBan").val(data.MaPhongBan);
             // Populate the banking information fields
             if (data.BankingInfo) {
                 $('#bankName').val(data.BankingInfo.BankName);
@@ -852,6 +883,10 @@ function saveCBNV() {
         Branch: $("#branch").val(),
         SwiftCode: $("#swiftCode").val(),
     };
+    var phongBan = {
+        MaPhongBan: $('#phongBan').val(),
+        TenPhongBan: $('#phongBan').text()
+    };
     var cbnv = {
         CBNV: {
             MaCBNV: $("#cbnvId").val(),
@@ -871,11 +906,16 @@ function saveCBNV() {
             Email: $("#email").val(),
             NgayVaoTruong: ngayVaoTruongFormatted,
             ThamNienCongTac: $("#thamNienCongTac").val(),
+            PhongBan: {
+                MaPhongBan: $('#phongBan').val(),
+                TenPhongBan: $('#phongBan').text()
+            },
             BankingInfo: bankingInfos,
             ChuyenNganhs: chuyenNganhList
             // Set other fields as needed
         },
         ChuyenNganhs: chuyenNganhList,
+        PhongBan: phongBan,
     };
     //cbnv.CBNV.BankingInfo = bankingInfos; // Send the bankingInfo object directly
     cbnv.BankingInfo = bankingInfos; // Send the bankingInfo object directly
