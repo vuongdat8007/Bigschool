@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bigschool_TH_11", "Bigschool_TH_11.csproj", "{3374E9B9-A8DE-4ADB-9553-17D894BFBB3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLNS_TruongTH", "QLNS_TruongTH.csproj", "{3374E9B9-A8DE-4ADB-9553-17D894BFBB3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bigschool_TH_11.Tests", "..\Bigschool_TH_11.Tests\Bigschool_TH_11.Tests.csproj", "{D718502A-0D10-4F41-B9B9-B0F841948C43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLNS_TruongTH.Tests", "..\Bigschool_TH_11.Tests\QLNS_TruongTH.Tests.csproj", "{D718502A-0D10-4F41-B9B9-B0F841948C43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
