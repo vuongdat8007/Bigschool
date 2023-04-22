@@ -77,15 +77,15 @@ textarea {
     display:block
 }
 
-.table-responsive {
+/*.table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-}
+}*/
 
 /* Optional: Add some padding to the table cells for better readability */
-.table td, .table th {
+/*.table td, .table th {
     padding: 0.5rem;
-}
+}*/
 
 /* Optional: Adjust the font size of the table cells for better readability */
 .table {
@@ -110,3 +110,12 @@ textarea {
         background-color: #fff;
         transform: translateY(-50%);
     }
+div.dataTables_wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    background: #FFFFFF url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2211%22%20height%3D%2211%22%20viewBox%3D%220%200%2011%2011%22%3E%3Cpath%20d%3D%22M4.33%208.5L0%201L8.66%201z%22%20fill%3D%22%2300AEA9%22%2F%3E%3C%2Fsvg%3E') right 13px center no-repeat;
+}
+

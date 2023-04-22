@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -27,5 +28,17 @@ namespace Bigschool_TH_11.Models
         public DateTime NgayVaoTruong { get; set; }
         public int ThamNienCongTac { get; set; }
         public string SoCMND { get; set; }
+        // Navigation property for the related ChuyenNganhs table
+        public virtual ICollection<CBNVChuyenNganh> CBNVChuyenNganhs { get; set; }
+
+        //public virtual ICollection<BankingInfo> BankingInfos { get; set; }
+        public virtual BankingInfo BankingInfo { get; set; }
+
+        public string MaChucVu { get; set; }
+        public ChucVu ChucVu { get; set; }
+        // Navigation property for PhongBan
+        public string MaPhongBan { get; set; }
+        [ForeignKey("MaPhongBan")]
+        public virtual PhongBan PhongBan { get; set; }
     }
 }

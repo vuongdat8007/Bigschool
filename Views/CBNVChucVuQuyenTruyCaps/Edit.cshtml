@@ -1,0 +1,36 @@
+﻿@model Bigschool_TH_11.ViewModels.CBNVChucVuQuyenTruyCapViewModel
+@{
+    ViewBag.Title = "Edit CBNV Chuc Vu and Quyen Truy Cap";
+    ViewBag.ActiveMenu = "EditChucVuQuyenTruyCap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit @Model.CBNV.HoTen's Chuc Vu and Quyen Truy Cap</h2>
+
+@using (Html.BeginForm("Save", "CBNVChucVuQuyenTruyCaps"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.CBNV.MaCBNV)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ChucVu.MaChucVu, "Chuc Vu")
+        @Html.DropDownListFor(m => m.ChucVu.MaChucVu, new SelectList(Model.ChucVus, "MaChucVu", "TenChucVu"), "Select Chuc Vu", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ChucVu.MaChucVu, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.QuyenTruyCap.MaQuyen, "Quyen Truy Cap")
+        @Html.DropDownListFor(m => m.QuyenTruyCap.MaQuyen, new SelectList(Model.QuyenTruyCaps, "MaQuyen", "TenQuyen"), "Select Quyen Truy Cap", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.QuyenTruyCap.MaQuyen, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ChucNang.MaChucNang, "Chuc Nang")
+        @Html.DropDownListFor(m => m.ChucNang.MaChucNang, new SelectList(Model.ChucNangs, "MaChucNang", "TenChucNang"), "Select Chuc Nang", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ChucNang.MaChucNang, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", "CBNV", null, new { @class = "btn btn-secondary" })
+}

@@ -11,6 +11,10 @@ namespace Bigschool_TH_11.Models
         [Key]
         public string MaChucVu { get; set; }
         public string TenChucVu { get; set; }
+
+        public ICollection<CBNV> CBNVs { get; set; }
+
         public string MaQuyen { get; set; }
+        public QuyenTruyCap QuyenTruyCap { get; set; }
     }
 }

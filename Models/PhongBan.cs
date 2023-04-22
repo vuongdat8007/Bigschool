@@ -12,5 +12,8 @@ namespace Bigschool_TH_11.Models
         public string MaPhongBan { get; set; }
         public string TenPhongBan { get; set; }
         public string SoDienThoai { get; set; }
+
+        // Navigation property for the one-to-many relationship with CBNV
+        public ICollection<CBNV> CBNVs { get; set; }
     }
 }
