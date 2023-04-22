@@ -192,6 +192,8 @@
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhongBanController.cs" />
+    <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\QuyenTruyCapController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="DTOs\AttendanceDto.cs" />
@@ -276,6 +278,18 @@
     <Compile Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.designer.cs">
       <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304220011105_AddPhongBanModel.cs" />
+    <Compile Include="Migrations\202304220011105_AddPhongBanModel.designer.cs">
+      <DependentUpon>202304220011105_AddPhongBanModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304220014564_AddPhongBanModel1.cs" />
+    <Compile Include="Migrations\202304220014564_AddPhongBanModel1.designer.cs">
+      <DependentUpon>202304220014564_AddPhongBanModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304220015444_UpdateCBNVModel.cs" />
+    <Compile Include="Migrations\202304220015444_UpdateCBNVModel.designer.cs">
+      <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -311,6 +325,7 @@
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\ManagementViewModel.cs" />
+    <Compile Include="ViewModels\PhongBanViewModel.cs" />
     <Compile Include="ViewModels\QuyenTruyCapEditViewModel.cs" />
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
@@ -623,10 +638,17 @@
     <Content Include="Views\ChucVu\Create.cshtml" />
     <Content Include="Views\ChucVu\AssignChucVu.cshtml" />
     <Content Include="Views\ChucVu\EditAssignedCBNVs.cshtml" />
+    <Content Include="Views\PhongBans\Create.cshtml" />
+    <Content Include="Views\PhongBans\Delete.cshtml" />
+    <Content Include="Views\PhongBans\Details.cshtml" />
+    <Content Include="Views\PhongBans\Edit.cshtml" />
+    <Content Include="Views\PhongBans\Index.cshtml" />
+    <Content Include="Views\PhongBans\AssignCBNVsToPhongBan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="startbootstrap\vendor\" />
+    <Folder Include="Views\PhongBan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -698,6 +720,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.resx">
       <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220011105_AddPhongBanModel.resx">
+      <DependentUpon>202304220011105_AddPhongBanModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220014564_AddPhongBanModel1.resx">
+      <DependentUpon>202304220014564_AddPhongBanModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220015444_UpdateCBNVModel.resx">
+      <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -35,5 +36,9 @@ namespace Bigschool_TH_11.Models
 
         public string MaChucVu { get; set; }
         public ChucVu ChucVu { get; set; }
+        // Navigation property for PhongBan
+        public string MaPhongBan { get; set; }
+        [ForeignKey("MaPhongBan")]
+        public virtual PhongBan PhongBan { get; set; }
     }
 }
