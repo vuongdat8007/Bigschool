@@ -1,0 +1,32 @@
+﻿@model Bigschool_TH_11.Models.ChucVu
+@{
+    ViewBag.Title = "Create Chức Vụ";
+    ViewBag.ActiveMenu = "ChucVu";
+    ViewBag.ActiveSub = "CreateChucVu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Chức Vụ</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-group">
+    @Html.LabelFor(m => m.MaQuyen, "DS Quyền Truy Cập")
+    @Html.DropDownListFor(m => m.MaQuyen, (SelectList)ViewBag.MaQuyen, "Chọn 1 Quyền Truy Cập", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.MaQuyen, "", new { @class = "text-danger" })
+</div>
+    // Add the input fields for QuyenTruyCap properties
+<div class="input-container mt-3">
+    <label for="maChucVu" class="text-gray-700">Mã Chức Vụ</label>
+    <input type="text" class="form-control" id="maChucVu" name="maChucVu" required />
+
+</div>
+<div class="input-container mt-3">
+    <label for="tenChucVu" class="text-gray-700">Tên Chức Vụ</label>
+    <input type="text" class="form-control mb-3" id="tenChucVu" name="tenChucVu" required />
+
+</div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

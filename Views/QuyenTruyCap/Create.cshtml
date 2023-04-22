@@ -1,0 +1,30 @@
+﻿@model Bigschool_TH_11.Models.QuyenTruyCap
+@{
+    ViewBag.Title = "Create Quyen Truy Cap";
+    ViewBag.ActiveMenu = "QuyenTruyCap";
+    ViewBag.ActiveSub = "CreateQuyenTruyCap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create "Quyền Truy Cập"</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-group">
+    @Html.LabelFor(m => m.MaChucNang, "Chuc Nang")
+    @Html.DropDownListFor(m => m.MaChucNang, (SelectList)ViewBag.MaChucNang, "Select Chuc Nang", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.MaChucNang, "", new { @class = "text-danger" })
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TenQuyen, "Ten Quyen")
+        @Html.EditorFor(m => m.TenQuyen, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.TenQuyen, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

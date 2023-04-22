@@ -11,5 +11,7 @@ namespace Bigschool_TH_11.Models
         [Key]
         public string MaChucNang { get; set; }
         public string TenChucNang { get; set; }
+
+        public ICollection<QuyenTruyCap> QuyenTruyCaps { get; set; }
     }
 }

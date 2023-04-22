@@ -1,0 +1,25 @@
+﻿@model Bigschool_TH_11.Models.ChucNang
+@{
+    ViewBag.Title = "Create Chuc Nang";
+    ViewBag.ActiveMenu = "ChucNang";
+    ViewBag.ActiveSub = "CreateChucNang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Chuc Nang</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    // Add the input fields for Chuc Nang properties
+    <div class="input-container mt-3">
+        <input type="text" class="form-control" id="maChucNang" name="maChucNang" required />
+        <label for="maChucNang" class="text-gray-700">Mã Chức Năng</label>
+    </div>
+    <div class="input-container mt-3">
+        <input type="text" class="form-control" id="tenChucNang" name="tenChucNang" required />
+        <label for="tenChucNang" class="text-gray-700">Tên Chức Năng</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

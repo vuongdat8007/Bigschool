@@ -1,0 +1,67 @@
+﻿@model Bigschool_TH_11.ViewModels.EditAssignedCBNVsViewModel
+@{
+    ViewBag.Title = "Assign ChucVu to CBNV";
+    ViewBag.ActiveMenu = "ChucVu";
+    ViewBag.ActiveSub = "AssignChucVu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Assign ChucVu to CBNV</h2>
+
+@using (Html.BeginForm("SaveAssignedChucVu", "ChucVu"))
+{
+    @Html.AntiForgeryToken()
+    <table id="cbnv-chucvu-table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Chức Vụ</th>
+                <th>CBNV</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chucVu in Model.ChucVus)
+            {
+                <tr>
+                    <td>@chucVu.TenChucVu</td>
+                    <td>
+                        @foreach (var cbnv in Model.CBNVs)
+                        {
+                            if (cbnv.MaChucVu == chucVu.MaChucVu)
+                            {
+                                @cbnv.HoTen <br />
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SelectedChucVu, "Chuc Vu")
+        @Html.DropDownListFor(m => m.SelectedChucVu, new SelectList(Model.ChucVus, "MaChucVu", "TenChucVu"), "Select Chuc Vu", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="cbnvSelect">CBNV</label>
+        <select id="cbnvSelect" name="SelectedCBNVs" multiple="multiple" class="form-control">
+            @foreach (var cbnv in Model.CBNVs)
+            {
+                <option value="@cbnv.MaCBNV">@cbnv.HoTen</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", "ChucVu", null, new { @class = "btn btn-secondary" })
+}
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $("#cbnvSelect").select2();
+            $('#cbnv-chucvu-table').DataTable();
+        });
+    </script>
+}

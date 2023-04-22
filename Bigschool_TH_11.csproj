@@ -179,20 +179,29 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\BangCapCBNVChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CBNVController.cs" />
+    <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\CBNVChucVuQuyenTruyCapsController.cs" />
     <Compile Include="Controllers\CBNVController.cs" />
+    <Compile Include="Controllers\ChucNangController.cs" />
+    <Compile Include="Controllers\ChucVuController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhongBanController.cs" />
+    <Compile Include="Controllers\PhongBansController.cs" />
+    <Compile Include="Controllers\QuyenTruyCapController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="DTOs\AttendanceDto.cs" />
     <Compile Include="DTOs\FollowingDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Migrations\202303260912332_InitialModel.cs" />
     <Compile Include="Migrations\202303260912332_InitialModel.designer.cs">
       <DependentUpon>202303260912332_InitialModel.cs</DependentUpon>
@@ -229,14 +238,72 @@
     <Compile Include="Migrations\202304130239504_SeedData_CBNVs.designer.cs">
       <DependentUpon>202304130239504_SeedData_CBNVs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.cs" />
+    <Compile Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.designer.cs">
+      <DependentUpon>202304141722555_AddChuyenNghanhsToCBNVs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs" />
+    <Compile Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.designer.cs">
+      <DependentUpon>202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304151645265_AddBankingInfoModel.cs" />
+    <Compile Include="Migrations\202304151645265_AddBankingInfoModel.designer.cs">
+      <DependentUpon>202304151645265_AddBankingInfoModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.cs" />
+    <Compile Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.designer.cs">
+      <DependentUpon>202304161609414_UpdateCBNVBankingInfoRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.cs" />
+    <Compile Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.designer.cs">
+      <DependentUpon>202304171542072_UpdateFKBankingInfoCBNV.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171557507_UpdateBankingInfoRelationship.cs" />
+    <Compile Include="Migrations\202304171557507_UpdateBankingInfoRelationship.designer.cs">
+      <DependentUpon>202304171557507_UpdateBankingInfoRelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.cs" />
+    <Compile Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.designer.cs">
+      <DependentUpon>202304171603416_UpdateBankingInfoRelationship2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.cs" />
+    <Compile Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.designer.cs">
+      <DependentUpon>202304181518354_AddBangCapCBNVChuyenNganhModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304181714271_addGhiChuBangCap.cs" />
+    <Compile Include="Migrations\202304181714271_addGhiChuBangCap.designer.cs">
+      <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs" />
+    <Compile Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.designer.cs">
+      <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304220011105_AddPhongBanModel.cs" />
+    <Compile Include="Migrations\202304220011105_AddPhongBanModel.designer.cs">
+      <DependentUpon>202304220011105_AddPhongBanModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304220014564_AddPhongBanModel1.cs" />
+    <Compile Include="Migrations\202304220014564_AddPhongBanModel1.designer.cs">
+      <DependentUpon>202304220014564_AddPhongBanModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304220015444_UpdateCBNVModel.cs" />
+    <Compile Include="Migrations\202304220015444_UpdateCBNVModel.designer.cs">
+      <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\BangCapCBNVChuyenNganh.cs" />
+    <Compile Include="Models\BankingInfo.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CBNV.cs" />
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
+    <Compile Include="Models\ViewModels\BangCapCBNVChuyenNganhViewModel.cs" />
+    <Compile Include="ViewModels\EditAssignedCBNVsViewModel.cs" />
+    <Compile Include="ViewModels\CBNVChucVuQuyenTruyCapViewModel.cs" />
+    <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
     <Compile Include="Models\ChucNang.cs" />
     <Compile Include="Models\ChucVu.cs" />
     <Compile Include="Models\ChucVuQuyenTruyCap.cs" />
@@ -252,10 +319,14 @@
     <Compile Include="Models\ThayDoi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ChucNangEditViewModel.cs" />
+    <Compile Include="ViewModels\ChucVuEditViewModel.cs" />
     <Compile Include="ViewModels\CoursesViewModel.cs" />
     <Compile Include="ViewModels\CourseViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\ManagementViewModel.cs" />
+    <Compile Include="ViewModels\PhongBanViewModel.cs" />
+    <Compile Include="ViewModels\QuyenTruyCapEditViewModel.cs" />
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -267,11 +338,241 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\cbnv - Copy.js" />
     <Content Include="Scripts\app\cbnv.js" />
     <Content Include="Scripts\app\coursesController.js" />
+    <Content Include="Scripts\app\MyValidators.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\common.scss" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\mixins.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bulma.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.bulma.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.dataTables.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.foundation.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.foundation.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.jqueryui.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.semanticui.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\css\buttons.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bulma.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.bulma.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.colVis.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.colVis.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.dataTables.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.foundation.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.foundation.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.html5.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.html5.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.jqueryui.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.print.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.print.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.semanticui.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\buttons.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\dataTables.buttons.js" />
+    <Content Include="Scripts\Datatables\Buttons-2.3.6\js\dataTables.buttons.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bulma.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.bulma.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.dataTables.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.foundation.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.foundation.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.jqueryui.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.semanticui.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\dataTables.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\jquery.dataTables.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\css\jquery.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\images\sort_asc.png" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\images\sort_asc_disabled.png" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\images\sort_both.png" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\images\sort_desc.png" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\images\sort_desc_disabled.png" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bulma.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.bulma.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.dataTables.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.foundation.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.foundation.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.jqueryui.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.semanticui.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\jquery.dataTables.js" />
+    <Content Include="Scripts\Datatables\DataTables-1.13.4\js\jquery.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\datatables.css" />
+    <Content Include="Scripts\Datatables\datatables.js" />
+    <Content Include="Scripts\Datatables\datatables.min.css" />
+    <Content Include="Scripts\Datatables\datatables.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bulma.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.bulma.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.dataTables.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.foundation.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.foundation.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.jqueryui.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.semanticui.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bulma.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.bulma.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.dataTables.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.foundation.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.foundation.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.jqueryui.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.semanticui.js" />
+    <Content Include="Scripts\Datatables\FixedHeader-3.3.2\js\fixedHeader.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\JSZip-2.5.0\jszip.js" />
+    <Content Include="Scripts\Datatables\JSZip-2.5.0\jszip.min.js" />
+    <Content Include="Scripts\Datatables\pdfmake-0.1.36\pdfmake.js" />
+    <Content Include="Scripts\Datatables\pdfmake-0.1.36\pdfmake.min.js" />
+    <Content Include="Scripts\Datatables\pdfmake-0.1.36\vfs_fonts.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bulma.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.bulma.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.dataTables.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.foundation.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.foundation.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.jqueryui.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.semanticui.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\css\responsive.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\dataTables.responsive.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\dataTables.responsive.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bulma.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.bulma.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.dataTables.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.foundation.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.foundation.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.jqueryui.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.semanticui.js" />
+    <Content Include="Scripts\Datatables\Responsive-2.4.1\js\responsive.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bulma.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.bulma.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.dataTables.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.foundation.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.foundation.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.jqueryui.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.semanticui.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\css\searchPanes.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\dataTables.searchPanes.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\dataTables.searchPanes.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bulma.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.bulma.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.dataTables.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.foundation.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.foundation.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.jqueryui.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.semanticui.js" />
+    <Content Include="Scripts\Datatables\SearchPanes-2.1.2\js\searchPanes.semanticui.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap4.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap4.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap5.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bootstrap5.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bulma.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.bulma.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.dataTables.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.dataTables.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.foundation.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.foundation.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.jqueryui.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.jqueryui.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.semanticui.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\css\select.semanticui.min.css" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\dataTables.select.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\dataTables.select.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap4.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap4.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap5.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bootstrap5.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bulma.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.bulma.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.dataTables.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.dataTables.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.foundation.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.foundation.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.jqueryui.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.jqueryui.min.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.semanticui.js" />
+    <Content Include="Scripts\Datatables\Select-1.6.2\js\select.semanticui.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -282,6 +583,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="startbootstrap\gulpfile.js" />
     <Content Include="wallpaper.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -322,9 +624,31 @@
     <Content Include="Views\Courses\Mine.cshtml" />
     <Content Include="Views\PartialViews\_CBNVPartial.cshtml" />
     <Content Include="Views\CBNV\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_test.cshtml" />
+    <Content Include="Views\CBNVChucVuQuyenTruyCaps\Edit.cshtml" />
+    <Content Include="Views\CBNVChucVuQuyenTruyCaps\Index.cshtml" />
+    <Content Include="Views\ChucVu\Edit.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Edit.cshtml" />
+    <Content Include="Views\ChucNang\Edit.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Index.cshtml" />
+    <Content Include="Views\ChucVu\Index.cshtml" />
+    <Content Include="Views\ChucNang\Index.cshtml" />
+    <Content Include="Views\ChucNang\Create.cshtml" />
+    <Content Include="Views\QuyenTruyCap\Create.cshtml" />
+    <Content Include="Views\ChucVu\Create.cshtml" />
+    <Content Include="Views\ChucVu\AssignChucVu.cshtml" />
+    <Content Include="Views\ChucVu\EditAssignedCBNVs.cshtml" />
+    <Content Include="Views\PhongBans\Create.cshtml" />
+    <Content Include="Views\PhongBans\Delete.cshtml" />
+    <Content Include="Views\PhongBans\Details.cshtml" />
+    <Content Include="Views\PhongBans\Edit.cshtml" />
+    <Content Include="Views\PhongBans\Index.cshtml" />
+    <Content Include="Views\PhongBans\AssignCBNVsToPhongBan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="startbootstrap\vendor\" />
+    <Folder Include="Views\PhongBan\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -366,6 +690,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304130239504_SeedData_CBNVs.resx">
       <DependentUpon>202304130239504_SeedData_CBNVs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304141722555_AddChuyenNghanhsToCBNVs.resx">
+      <DependentUpon>202304141722555_AddChuyenNghanhsToCBNVs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.resx">
+      <DependentUpon>202304150233487_RemoveChuyenNghanhsFromCBNVModelAddCBNVChuyenNganhs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304151645265_AddBankingInfoModel.resx">
+      <DependentUpon>202304151645265_AddBankingInfoModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304161609414_UpdateCBNVBankingInfoRelationship.resx">
+      <DependentUpon>202304161609414_UpdateCBNVBankingInfoRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171542072_UpdateFKBankingInfoCBNV.resx">
+      <DependentUpon>202304171542072_UpdateFKBankingInfoCBNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171557507_UpdateBankingInfoRelationship.resx">
+      <DependentUpon>202304171557507_UpdateBankingInfoRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304171603416_UpdateBankingInfoRelationship2.resx">
+      <DependentUpon>202304171603416_UpdateBankingInfoRelationship2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304181518354_AddBangCapCBNVChuyenNganhModel.resx">
+      <DependentUpon>202304181518354_AddBangCapCBNVChuyenNganhModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304181714271_addGhiChuBangCap.resx">
+      <DependentUpon>202304181714271_addGhiChuBangCap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.resx">
+      <DependentUpon>202304201749336_AddChucVuQuyenTruyCapChucNangCBNVRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220011105_AddPhongBanModel.resx">
+      <DependentUpon>202304220011105_AddPhongBanModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220014564_AddPhongBanModel1.resx">
+      <DependentUpon>202304220014564_AddPhongBanModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304220015444_UpdateCBNVModel.resx">
+      <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
