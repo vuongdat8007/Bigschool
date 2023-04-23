@@ -1,10 +1,30 @@
 ﻿@model Bigschool_TH_11.Models.ThayDoi
 
-@using (Html.BeginForm("Save", "ThayDoi", FormMethod.Post, new { id = "createEditForm" }))
-{
-    @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(model => model.Id)
-
-    <!-- Add other form fields for ThayDoi properties -->
-}
+<form id="createEditForm">
+    <input type="hidden" id="Id" name="Id" />
+    <div class="form-group">
+        <label for="MaCBNV">MaCBNV</label>
+        <input type="text" class="form-control" id="MaCBNV" name="MaCBNV" required />
+    </div>
+    <div class="form-group">
+        <label for="MaPhongBan">MaPhongBan</label>
+        <input type="text" class="form-control" id="MaPhongBan" name="MaPhongBan" />
+    </div>
+    <div class="form-group">
+        <label for="MaChucVu">MaChucVu</label>
+        <input type="text" class="form-control" id="MaChucVu" name="MaChucVu" />
+    </div>
+    <div class="form-group">
+        <label for="NgayChuyen">NgayChuyen</label>
+        <input type="date" class="form-control" id="NgayChuyen" name="NgayChuyen" required />
+    </div>
+    <div class="form-group">
+        <label for="NoiDen">NoiDen</label>
+        <input type="text" class="form-control" id="NoiDen" name="NoiDen" />
+    </div>
+    <div class="form-group">
+        <label for="LyDoChuyen">LyDoChuyen</label>
+        <input type="text" class="form-control" id="LyDoChuyen" name="LyDoChuyen" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

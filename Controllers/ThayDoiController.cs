@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bigschool_TH_11.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,11 @@ namespace Bigschool_TH_11.Controllers
 {
     public class ThayDoiController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public ThayDoiController() { 
+            _context = new ApplicationDbContext();
+        }
         // GET: ThayDoi
         public ActionResult Index()
         {
@@ -84,6 +90,30 @@ namespace Bigschool_TH_11.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult CreateEditThayDoi(int? id)
+        {
+            ThayDoi thayDoi;
+
+            if (id == null)
+            {
+                thayDoi = new ThayDoi();
+            }
+            else
+            {
+                thayDoi = _context.ThayDois.SingleOrDefault(t => t.Id == id);
+                if (thayDoi == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+
+            ViewBag.MaCBNV = new SelectList(_context.CBNVs, "MaCBNV", "HoTen");
+            ViewBag.MaPhongBan = new SelectList(_context.PhongBans, "MaPhongBan", "TenPhongBan");
+            ViewBag.MaChucVu = new SelectList(_context.ChucVus, "MaChucVu", "TenChucVu");
+
+            return PartialView("_CreateEditThayDoiPartial", thayDoi);
         }
     }
 }
