@@ -183,6 +183,7 @@
     <Compile Include="Controllers\Api\CBNVController.cs" />
     <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
+    <Compile Include="Controllers\Api\ThayDoiApiController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
     <Compile Include="Controllers\CBNVChucVuQuyenTruyCapsController.cs" />
     <Compile Include="Controllers\Api\CBNVCongTacApiController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\QuyenTruyCapController.cs" />
+    <Compile Include="Controllers\ThayDoiController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="DTOs\AttendanceDto.cs" />
     <Compile Include="DTOs\FollowingDto.cs" />
@@ -295,9 +297,14 @@
     <Compile Include="Migrations\202304230321059_AddPrimaryKeyCBNVCongTacId.designer.cs">
       <DependentUpon>202304230321059_AddPrimaryKeyCBNVCongTacId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304231533326_UpdateThayDoiModel.cs" />
+    <Compile Include="Migrations\202304231533326_UpdateThayDoiModel.designer.cs">
+      <DependentUpon>202304231533326_UpdateThayDoiModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\AtLeastOneNotNullAttribute.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\BangCapCBNVChuyenNganh.cs" />
     <Compile Include="Models\BankingInfo.cs" />
@@ -659,12 +666,15 @@
     <Content Include="Views\PhongBans1\Index.cshtml" />
     <Content Include="Views\CBNVCongTac\Manage.cshtml" />
     <Content Include="Views\ChucVu\Delete.cshtml" />
+    <Content Include="Views\ThayDoi\Index.cshtml" />
+    <Content Include="Views\ThayDoi\_CreateEditThayDoiPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="startbootstrap\vendor\" />
     <Folder Include="Views\CBNVCongTacView\" />
     <Folder Include="Views\PhongBan\" />
+    <Folder Include="Views\ThayDoiApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -748,6 +758,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304230321059_AddPrimaryKeyCBNVCongTacId.resx">
       <DependentUpon>202304230321059_AddPrimaryKeyCBNVCongTacId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304231533326_UpdateThayDoiModel.resx">
+      <DependentUpon>202304231533326_UpdateThayDoiModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

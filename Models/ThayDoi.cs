@@ -7,9 +7,14 @@ using System.Web;
 
 namespace Bigschool_TH_11.Models
 {
+    [AtLeastOneNotNull("MaPhongBan", "MaChucVu", ErrorMessage = "Either MaPhongBan or MaChucVu must have a non-null value.")]
     public class ThayDoi
     {
-        [Key, ForeignKey("CBNV")]
+        [Key]
+        public int Id { get; set; }
+        [Required]
+
+        [ForeignKey("CBNV")]
         public string MaCBNV { get; set; }
         public CBNV CBNV { get; set; }
 

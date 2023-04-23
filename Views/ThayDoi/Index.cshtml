@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Thay Doi";
+    ViewBag.ActiveMenu = "CongTac";
+    ViewBag.ActiveSub = "ThayDoiCongTac";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Thay Doi</h2>
+    <table id="thayDoiTable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CBNV</th>
+                <th>Phong Ban</th>
+                <th>Chuc Vu</th>
+                <th>Ngay Chuyen</th>
+                <th>Noi Den</th>
+                <th>Ly Do Chuyen</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+    </table>
+    <button id="btnAddNew" class="btn btn-primary mt-3">Add New Record</button>
+</div>
+    <!-- Create/Edit Modal -->
+    <div class="modal fade" id="createEditModal" tabindex="-1" aria-labelledby="createEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createEditModalLabel">Create/Edit Thay Doi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_CreateEditThayDoiPartial")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Thay Doi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this record?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section scripts {
+        <script>
+$(document).ready(function () {
+        $('#btnAddNew').on('click', function () {
+            // Clear the form fields and show the Create/Edit Modal
+            $('#createEditForm')[0].reset();
+            $('#createEditModal').modal('show');
+        });
+        var table = $('#thayDoiTable').DataTable({
+            ajax: {
+                url: '/api/ThayDoiApi',
+                dataSrc: ''
+            },
+            dom: 'Blfrtip',
+            columns: [
+                { data: 'Id' },
+                { data: 'CBNV.HoTen' },
+                { data: 'PhongBan.TenPhongBan' },
+                { data: 'ChucVu.TenChucVu' },
+                { data: 'NgayChuyen' },
+                { data: 'NoiDen' },
+                { data: 'LyDoChuyen' },
+                {
+                    data: 'Id',
+                    render: function (data, type, row) {
+                        return '<button class="btn btn-primary btn-edit" data-id="' + data + '">Edit</button> ' +
+                            '<button class="btn btn-danger btn-delete" data-id="' + data + '">Delete</button>';
+                    }
+                }
+            ]
+        });
+
+        // Add event listeners for Edit and Delete buttons
+        $('#thayDoiTable tbody').on('click', 'button.btn-edit', function () {
+            var id = $(this).data('id');
+            // Fetch the ThayDoi record and populate the form fields
+            $.ajax({
+                url: '/api/ThayDoiApi/' + id,
+                type: 'GET',
+                success: function (data) {
+                    // Populate form fields with fetched data
+                    $('#Id').val(data.id);
+                    // ... Set other form fields
+                    // Show the Create/Edit Modal
+                    $('#createEditModal').modal('show');
+                }
+            });
+        });
+
+        $('#thayDoiTable tbody').on('click', 'button.btn-delete', function () {
+            var id = $(this).data('id');
+            // Store the ThayDoi ID for later use
+            $('#deleteModal').data('id', id);
+            // Show the Delete Modal
+            $('#deleteModal').modal('show');
+        });
+
+        // Add event listeners for Create/Edit/Delete modals
+        $('#createEditModal').on('shown.bs.modal', function () {
+            // Initialize form validation
+        });
+
+        $('#createEditModal').on('hidden.bs.modal', function () {
+            // Reset the form and validation state
+        });
+
+        $('#btnConfirmDelete').on('click', function () {
+            // Perform the delete action and update the DataTable
+            var id = $('#deleteModal').data('id');
+            $.ajax({
+                url: '/api/ThayDoiApi/' + id,
+                type: 'DELETE',
+                success: function () {
+                    // Update the DataTable
+                    table.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).remove().draw();
+                    // Hide the Delete Modal
+                    $('#deleteModal').modal('hide');
+                }
+            });
+        });
+
+        // Add event listener for the Create button
+        $('#btnCreate').on('click', function () {
+            // Clear the form fields and show the Create/Edit Modal
+            $('#createEditForm')[0].reset();
+            $('#createEditModal').modal('show');
+        });
+
+        // Add event listener for the form submit action
+        $('#createEditForm').on('submit', function (e) {
+            e.preventDefault();
+            // Validate the form
+            // Perform the create/edit action and update the DataTable
+            var formData = $(this).serialize();
+            var id = $('#Id').val();
+            var ajaxType = id ? 'PUT' : 'POST';
+            var ajaxUrl = id ? '/api/ThayDoiApi/' + id : '/api/ThayDoiApi';
+
+            $.ajax({
+                url: ajaxUrl,
+                type: ajaxType,
+                data: formData,
+                success: function (data) {
+                    // Update the DataTable
+                    if (id) {
+                        // Edit case
+                        table.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).data(data).draw();
+                    } else {
+                        // Create case
+                        table.row.add(data).draw();
+                    }
+                    // Hide the Create/Edit Modal
+                    $('#createEditModal').modal('hide');
+                }
+            });
+        });
+});
+        </script>
+    }

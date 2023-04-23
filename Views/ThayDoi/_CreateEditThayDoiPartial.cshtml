@@ -1,0 +1,10 @@
+﻿@model Bigschool_TH_11.Models.ThayDoi
+
+@using (Html.BeginForm("Save", "ThayDoi", FormMethod.Post, new { id = "createEditForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <!-- Add other form fields for ThayDoi properties -->
+}

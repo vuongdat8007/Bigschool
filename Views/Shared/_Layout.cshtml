@@ -76,12 +76,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-lock"></i>
                     <span>Hành Chánh</span>
                 </a>
-                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Phòng Ban:</h6>
                         <hr class="sidebar-divider bg-info">
@@ -103,7 +103,9 @@
 
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Công tác:</h6>
-                        <a class="collapse-item" href="@Url.Action("Manage", "CBNVCongTac")">Quản lý Công Tác CBNV</a>
+                        <hr class="sidebar-divider bg-success">
+                        <a href="@Url.Action("Manage", "CBNVCongTac")" class="collapse-item  @(ViewBag.ActiveSub == "ManageCongTac" ? "badge badge-secondary text-white" : "")">Quản lý Công Tác CBNV</a>
+                        <a href="@Url.Action("Index", "ThayDoi")" class="collapse-item text-gray-700   @(ViewBag.ActiveSub == "ThayDoiCongTac" ? "badge badge-secondary text-white" : "")">Thay Đổi Công Tác CBNV</a>
                         <a class="collapse-item" href="#">Report</a>
                     </div>
                 </div>
