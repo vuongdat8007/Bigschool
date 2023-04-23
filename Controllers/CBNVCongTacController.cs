@@ -6,10 +6,12 @@ using System.Web.Mvc;
 
 namespace Bigschool_TH_11.Controllers
 {
-    public class PhongBanController : Controller
+    [RoutePrefix("CBNVCongTac")]
+    public class CBNVCongTacController : Controller
     {
-        // GET: PhongBan
-        public ActionResult Index()
+        // GET: CBNVCongTac/Manage
+        [Route("Manage")]
+        public ActionResult Manage()
         {
             return View();
         }

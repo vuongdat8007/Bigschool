@@ -12,7 +12,14 @@ namespace Bigschool_TH_11
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+            routes.MapMvcAttributeRoutes(); // Enable attribute routing
+
+            /*routes.MapRoute(
+                name: "Api",
+                url: "api/{controller}/{id}",
+                defaults: new { id = UrlParameter.Optional }
+            );
+*/
             routes.MapRoute(
                 name: "CBNVChucVuQuyenTruyCaps",
                 url: "CBNVChucVuQuyenTruyCaps/{action}/{id}",
@@ -35,6 +42,12 @@ namespace Bigschool_TH_11
                 name: "QuyenTruyCap",
                 url: "QuyenTruyCap/{action}/{id}",
                 defaults: new { controller = "QuyenTruyCap", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "CBNVCongTac",
+                url: "CBNVCongTac/{action}/{id}",
+                defaults: new { controller = "CBNVCongTac", action = "Manage", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

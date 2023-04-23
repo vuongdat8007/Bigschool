@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "CongTac - CBNV Management";
+    ViewBag.ActiveMenu = "CongTacCBNV";
+}
+
+<div class="container">
+    <h1>Manage CBNVCongTac</h1>
+
+    <form id="cbnvCongTacForm">
+        <input type="hidden" id="cbnvCongTacId" />
+        @*<div class="form-group">
+            <label for="maCBNV">MaCBNV</label>
+            <input type="text" class="form-control" id="maCBNV" required />
+        </div>
+        <div class="form-group">
+            <label for="maChucVu">MaChucVu</label>
+            <input type="text" class="form-control" id="maChucVu" required />
+        </div>*@
+        <div class="form-group">
+            <label for="maCBNV">CBNV</label>
+            <select class="form-control" id="maCBNV" name="maCBNV">
+                <option value="">Select CBNV</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="maChucVu">Chuc Vu</label>
+            <select class="form-control" id="maChucVu" name="maChucVu">
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ngayBatDauCongTac">NgayBatDauCongTac</label>
+            <input type="date" class="form-control" id="ngayBatDauCongTac" required />
+        </div>
+        <div class="form-group">
+            <label for="ngayKetThucCongTac">NgayKetThucCongTac</label>
+            <input type="date" class="form-control" id="ngayKetThucCongTac" required />
+        </div>
+        <div class="form-group">
+            <label for="tenTruong">TenTruong</label>
+            <input type="text" class="form-control" id="tenTruong" required />
+        </div>
+        <div class="form-group">
+            <label for="ghiChu">GhiChu</label>
+            <textarea class="form-control" id="ghiChu"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" id="resetForm" class="btn btn-secondary">Reset</button>
+    </form>
+
+    <table id="cbnvCongTacTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>MaCBNV</th>
+                <th>MaChucVu</th>
+                <th>NgayBatDauCongTac</th>
+                <th>NgayKetThucCongTac</th>
+                <th>TenTruong</th>
+                <th>GhiChu</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+    <script src="~/Scripts/app/CBNVCongTacManage.js"></script>
+}

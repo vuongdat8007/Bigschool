@@ -20,11 +20,14 @@
             <td>@item.MaChucVu</td>
             <td>@item.TenChucVu</td>
             <td>
-                @Html.ActionLink("Edit", "ChucVu", new { id = item.MaChucVu }, new { @class = "btn btn-primary" })
+                <a href="@Url.Action("Edit", "ChucVu", new { id = item.MaChucVu })" class="btn btn-primary">Edit</a>
             </td>
-            <td>
-                @Html.ActionLink("Edit Assigned CBNVs", "EditAssignedCBNVs", new { id = item.MaChucVu }, new { @class = "btn btn-primary" })
-            </td>
+            @*<td>
+                <a href="@Url.Action("EditAssignedCBNVs", "ChucVu", new { id = item.MaChucVu })" class="btn btn-primary">Edit Assigned CBNVs</a>
+            </td>*@
+        <td>
+            <a href="@Url.Action("Delete", "ChucVu", new { id = item.MaChucVu })" class="btn btn-danger">Delete</a>
+        </td>
         </tr>
     }
 </table>

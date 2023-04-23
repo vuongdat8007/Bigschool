@@ -121,11 +121,11 @@ namespace Bigschool_TH_11.Controllers
         {
             var viewModel = new PhongBanViewModel
             {
-                PhongBan = new PhongBan(),
-                CBNVs = db.CBNVs.ToList(),
-                PhongBans = db.PhongBans.Include(p => p.CBNVs).ToList(), // Include the related CBNVs
-                CBNVSelections = db.CBNVs.Select(c => new CBNVSelection { CBNV = c, IsSelected = false }).ToList()
+                PhongBans = db.PhongBans.ToList(), // Replace this line with the actual method to fetch PhongBans from your data source
+                CBNVs = db.CBNVs.ToList(), // Replace this line with the actual method to fetch CBNVs from your data source
+                CBNVSelections = db.CBNVs.Select(c => new CBNVSelection { CBNV = c, IsSelected = false }).ToList() // Replace this line with the actual method to fetch CBNVSelections from your data source
             };
+
             return View(viewModel);
         }
 
@@ -152,8 +152,12 @@ namespace Bigschool_TH_11.Controllers
                     }
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("AssignCBNVsToPhongBan");
             }
+            // Initialize PhongBans, CBNVs, and CBNVSelections properties before returning the view
+            viewModel.PhongBans = db.PhongBans.ToList(); // Replace with your method to fetch PhongBans from your data source
+            viewModel.CBNVs = db.CBNVs.ToList(); // Replace with your method to fetch CBNVs from your data source
+            viewModel.CBNVSelections = db.CBNVs.Select(c => new CBNVSelection { CBNV = c, IsSelected = false }).ToList(); // Replace with your method to fetch CBNVSelections from your data source
             return View(viewModel);
         }
 

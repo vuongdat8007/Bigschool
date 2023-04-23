@@ -9,7 +9,10 @@ namespace Bigschool_TH_11.Models
 {
     public class CBNVCongTac
     {
-        [Key, ForeignKey("CBNV")]
+        [Key]
+        public int CBNVCongTacId { get; set; }
+
+        [ForeignKey("CBNV")]
         public string MaCBNV { get; set; }
         public CBNV CBNV { get; set; }
 

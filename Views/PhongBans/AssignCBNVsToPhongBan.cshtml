@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Assign CBNVs to PhongBan";
     ViewBag.ActiveMenu = "PhongBan";
-    ViewBag.ActiveSub = "Assign";
+    ViewBag.ActiveSub = "AssignPhongBan";
 }
 
 <h2>Assign CBNVs to PhongBan</h2>
@@ -32,7 +32,7 @@
                             <td>
                                 @foreach (var cbnv in phongBan.CBNVs)
                                 {
-                                    <span>@cbnv.MaCBNV </span>
+                                    <span class="w-100">@cbnv.MaCBNV - @cbnv.HoTen - @(cbnv.ChucVu != null ? cbnv.ChucVu.TenChucVu : "")</span>
                                 }
                             </td>
                         }
@@ -70,7 +70,7 @@
                         @for (int i = 0; i < Model.CBNVSelections.Count; i++)
                         {
                             <div class="form-check">
-                                @Html.HiddenFor(m => m.CBNVSelections[i].CBNV)
+                                @Html.HiddenFor(m => m.CBNVSelections[i].CBNV.MaCBNV) <!-- Store the MaCBNV instead of the entire CBNV object -->
                                 @Html.CheckBoxFor(m => m.CBNVSelections[i].IsSelected, new { @class = "form-check-input" })
                                 @Html.LabelFor(m => m.CBNVSelections[i].IsSelected, Model.CBNVSelections[i].CBNV.MaCBNV, new { @class = "form-check-label" })
                             </div>

@@ -35,6 +35,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css" rel="stylesheet" />
     @*@Styles.Render("~/Content/css")*@
+    @RenderSection("Styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
 </head>
 
@@ -55,11 +56,10 @@
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider my-0" />
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item @(ViewBag.ActiveMenu == "Home" ? "active bg-info" : "")">
-                ">
                 <a class="nav-link" href="@Url.Action("Index", "Home")">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -102,9 +102,9 @@
                         <a href="@Url.Action("Index", "ChucVu")" class="collapse-item @(ViewBag.ActiveSub == "IndexChucVu" ? "badge badge-secondary text-white" : "")">Index</a>
 
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Công tác:</h6>
+                        <a class="collapse-item" href="@Url.Action("Manage", "CBNVCongTac")">Quản lý Công Tác CBNV</a>
+                        <a class="collapse-item" href="#">Report</a>
                     </div>
                 </div>
             </li>

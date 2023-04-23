@@ -19,19 +19,8 @@ namespace Bigschool_TH_11.Controllers.Api
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/CBNV
-        /*public IQueryable<CBNV> GetCBNVs()
-        {
-            return db.CBNVs;
-        }*/
-        // GET: api/CBNV
         public IEnumerable<CBNVViewModel> GetCBNVs()
         {
-            /*return db.CBNVs.Include(c => c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh)).Include(c => c.BankingInfo).Select(c => new CBNVViewModel
-            {
-                CBNV = c,
-                BankingInfo = c.BankingInfo,
-                ChuyenNganhs = c.CBNVChuyenNganhs.Select(x => x.ChuyenNganh).ToList()
-            });*/
             using (var context = new ApplicationDbContext())
             {
                 context.Configuration.ProxyCreationEnabled = false;

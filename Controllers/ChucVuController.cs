@@ -93,7 +93,32 @@ namespace Bigschool_TH_11.Controllers
             return RedirectToAction("Index", "ChucVu");
         }
 
-        
+        public ActionResult Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ChucVu chucVu = _context.ChucVus.Find(id);
+
+            if (chucVu == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(chucVu);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            ChucVu chucVu = _context.ChucVus.Find(id);
+            _context.ChucVus.Remove(chucVu);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         public ActionResult EditAssignedCBNVs(string id)
         {

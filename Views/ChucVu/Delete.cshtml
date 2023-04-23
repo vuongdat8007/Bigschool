@@ -1,0 +1,31 @@
+﻿@model Bigschool_TH_11.Models.ChucVu
+
+@{
+    ViewBag.Title = "Delete Chuc Vu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Chuc Vu</h2>
+
+<h3>Are you sure you want to delete this Chuc Vu?</h3>
+
+<div>
+    <h4>Chuc Vu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.MaChucVu</dd>
+        <dt>Name</dt>
+        <dd>@Model.TenChucVu</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

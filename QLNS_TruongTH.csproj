@@ -185,6 +185,8 @@
     <Compile Include="Controllers\Api\CoursesController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
     <Compile Include="Controllers\CBNVChucVuQuyenTruyCapsController.cs" />
+    <Compile Include="Controllers\Api\CBNVCongTacApiController.cs" />
+    <Compile Include="Controllers\CBNVCongTacController.cs" />
     <Compile Include="Controllers\CBNVController.cs" />
     <Compile Include="Controllers\ChucNangController.cs" />
     <Compile Include="Controllers\ChucVuController.cs" />
@@ -192,9 +194,6 @@
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PhongBanController.cs" />
-    <Compile Include="Controllers\PhongBans1Controller.cs" />
-    <Compile Include="Controllers\PhongBansApiController.cs" />
     <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\QuyenTruyCapController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
@@ -292,6 +291,10 @@
     <Compile Include="Migrations\202304220015444_UpdateCBNVModel.designer.cs">
       <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304230321059_AddPrimaryKeyCBNVCongTacId.cs" />
+    <Compile Include="Migrations\202304230321059_AddPrimaryKeyCBNVCongTacId.designer.cs">
+      <DependentUpon>202304230321059_AddPrimaryKeyCBNVCongTacId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -303,6 +306,8 @@
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
     <Compile Include="Models\ViewModels\BangCapCBNVChuyenNganhViewModel.cs" />
+    <Compile Include="ViewModels\CBNVCongTacListViewModel.cs" />
+    <Compile Include="ViewModels\CBNVCongTacViewModel.cs" />
     <Compile Include="ViewModels\EditAssignedCBNVsViewModel.cs" />
     <Compile Include="ViewModels\CBNVChucVuQuyenTruyCapViewModel.cs" />
     <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
@@ -342,6 +347,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\cbnv - Copy.js" />
     <Content Include="Scripts\app\cbnv.js" />
+    <Content Include="Scripts\app\CBNVCongTacManage.js" />
     <Content Include="Scripts\app\coursesController.js" />
     <Content Include="Scripts\app\MyValidators.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -651,10 +657,13 @@
     <Content Include="Views\PhongBans1\Details.cshtml" />
     <Content Include="Views\PhongBans1\Edit.cshtml" />
     <Content Include="Views\PhongBans1\Index.cshtml" />
+    <Content Include="Views\CBNVCongTac\Manage.cshtml" />
+    <Content Include="Views\ChucVu\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="startbootstrap\vendor\" />
+    <Folder Include="Views\CBNVCongTacView\" />
     <Folder Include="Views\PhongBan\" />
   </ItemGroup>
   <ItemGroup>
@@ -736,6 +745,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304220015444_UpdateCBNVModel.resx">
       <DependentUpon>202304220015444_UpdateCBNVModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304230321059_AddPrimaryKeyCBNVCongTacId.resx">
+      <DependentUpon>202304230321059_AddPrimaryKeyCBNVCongTacId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
