@@ -55,10 +55,10 @@ namespace Bigschool_TH_11.Controllers.Api
         [HttpPost]
         public IHttpActionResult CreateThayDoi(ThayDoi thayDoi)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            }*/ // Id is auto-generated in ThayDoi Model
 
             _context.ThayDois.Add(thayDoi);
             _context.SaveChanges();

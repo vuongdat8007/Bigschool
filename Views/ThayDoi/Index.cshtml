@@ -80,7 +80,12 @@ $(document).ready(function () {
                     { data: 'CBNV.HoTen' },
                     { data: 'PhongBan.TenPhongBan' },
                     { data: 'ChucVu.TenChucVu' },
-                    { data: 'NgayChuyen' },
+                    { 
+                        data: 'NgayChuyen',
+                        render: function(data, type, row) {
+                            return moment(data).format("DD-MM-YYYY");
+                        }
+                    },
                     { data: 'NoiDen' },
                     { data: 'LyDoChuyen' },
                     {
@@ -100,7 +105,7 @@ $(document).ready(function () {
                 $.ajax({
                     url: '/api/ThayDoiApi/' + id,
                     type: 'GET',
-                    success: function (data) {
+                    success: function (thayDoi) {
                         // Populate form fields with fetched data
                         $('#Id').val(thayDoi.Id);
                         $('#MaCBNV').val(thayDoi.MaCBNV);
@@ -109,7 +114,7 @@ $(document).ready(function () {
                         $('#NgayChuyen').val(thayDoi.NgayChuyen.substr(0, 10));
                         $('#NoiDen').val(thayDoi.NoiDen);
                         $('#LyDoChuyen').val(thayDoi.LyDoChuyen);
-                        $('#createEditModal').modal('show');
+                        
                         // Show the Create/Edit Modal
                         $('#createEditModal').modal('show');
                     }
@@ -176,13 +181,81 @@ $(document).ready(function () {
                             table.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).data(data).draw();
                         } else {
                             // Create case
-                            table.row.add(data).draw();
+                            //table.row.add(data).draw(); // Data inserted into Datatable incorrectly
+                            // fetch ThayDois record directly from API
+                            $.ajax({
+                                url: '/api/ThayDoiApi',
+                                type: 'GET',
+                                success: function (thayDoi) {
+                                    //TODO: Reload datatable wuh new thayDoi data
+                                }
+                            });
                         }
                         // Hide the Create/Edit Modal
                         $('#createEditModal').modal('hide');
                     }
                 });
             });
+});
+    // Fetch CBNV, PhongBan, and ChucVu data and populate the select lists
+function fetchCBNV() {
+    $.ajax({
+        url: '/api/CBNV',
+        type: 'GET',
+        success: function (cbnvs) {
+            cbnvs.forEach(function (cbnv) {
+                $('#MaCBNV').append('<option value="' + cbnv.CBNV.MaCBNV + '">' + cbnv.CBNV.HoTen + '</option>');
+            });
+        }
+    });
+}
+
+function fetchPhongBan() {
+    $.ajax({
+        url: '/api/PhongBanApi',
+        type: 'GET',
+        success: function (phongBans) {
+            phongBans.forEach(function (phongBan) {
+                $('#MaPhongBan').append('<option value="' + phongBan.MaPhongBan + '">' + phongBan.TenPhongBan + '</option>');
+            });
+        }
+    });
+}
+
+function fetchChucVu() {
+    $.ajax({
+        url: '/api/ChucVuApi',
+        type: 'GET',
+        success: function (chucVus) {
+            chucVus.forEach(function (chucVu) {
+                $('#MaChucVu').append('<option value="' + chucVu.MaChucVu + '">' + chucVu.TenChucVu + '</option>');
+            });
+        }
+    });
+}
+
+// Fetch the ThayDoi record and populate the form fields
+function fetchAndPopulateForm(id) {
+    $.ajax({
+        url: '/api/ThayDoiApi/' + id,
+        type: 'GET',
+        success: function (thayDoi) {
+            $('#Id').val(thayDoi.Id);
+            $('#MaCBNV').val(thayDoi.MaCBNV);
+            $('#MaPhongBan').val(thayDoi.MaPhongBan);
+            $('#MaChucVu').val(thayDoi.MaChucVu);
+            $('#NgayChuyen').val(thayDoi.NgayChuyen.substr(0, 10));
+            $('#NoiDen').val(thayDoi.NoiDen);
+            $('#LyDoChuyen').val(thayDoi.LyDoChuyen);
+        }
+    });
+}
+
+// Call the fetch functions when the page is loaded
+$(document).ready(function () {
+    fetchCBNV();
+    fetchPhongBan();
+    fetchChucVu();
 });
     </script>
 }

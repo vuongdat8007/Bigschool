@@ -181,8 +181,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BangCapCBNVChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CBNVController.cs" />
+    <Compile Include="Controllers\Api\ChucVuApiController.cs" />
     <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
+    <Compile Include="Controllers\Api\PhongBanApiController.cs" />
     <Compile Include="Controllers\Api\ThayDoiApiController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
     <Compile Include="Controllers\CBNVChucVuQuyenTruyCapsController.cs" />
@@ -300,6 +302,10 @@
     <Compile Include="Migrations\202304231533326_UpdateThayDoiModel.cs" />
     <Compile Include="Migrations\202304231533326_UpdateThayDoiModel.designer.cs">
       <DependentUpon>202304231533326_UpdateThayDoiModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304240825241_AddAutoIdGenerateForThayDoiModel.cs" />
+    <Compile Include="Migrations\202304240825241_AddAutoIdGenerateForThayDoiModel.designer.cs">
+      <DependentUpon>202304240825241_AddAutoIdGenerateForThayDoiModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -673,6 +679,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="startbootstrap\vendor\" />
     <Folder Include="Views\CBNVCongTacView\" />
+    <Folder Include="Views\ChucVuApi\" />
+    <Folder Include="Views\PhongBanApi\" />
     <Folder Include="Views\PhongBan\" />
     <Folder Include="Views\ThayDoiApi\" />
   </ItemGroup>
@@ -761,6 +769,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304231533326_UpdateThayDoiModel.resx">
       <DependentUpon>202304231533326_UpdateThayDoiModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304240825241_AddAutoIdGenerateForThayDoiModel.resx">
+      <DependentUpon>202304240825241_AddAutoIdGenerateForThayDoiModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

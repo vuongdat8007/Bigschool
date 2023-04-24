@@ -2,17 +2,40 @@
 
 <form id="createEditForm">
     <input type="hidden" id="Id" name="Id" />
+    @*<div class="form-group">
+            <label for="MaCBNV">MaCBNV</label>
+            <input type="text" class="form-control" id="MaCBNV" name="MaCBNV" required />
+        </div>
+        <div class="form-group">
+            <label for="MaPhongBan">MaPhongBan</label>
+            <input type="text" class="form-control" id="MaPhongBan" name="MaPhongBan" />
+        </div>
+        <div class="form-group">
+            <label for="MaChucVu">MaChucVu</label>
+            <input type="text" class="form-control" id="MaChucVu" name="MaChucVu" />
+        </div>*@
+    <!-- CBNV select list -->
     <div class="form-group">
-        <label for="MaCBNV">MaCBNV</label>
-        <input type="text" class="form-control" id="MaCBNV" name="MaCBNV" required />
+        <label for="MaCBNV">CBNV</label>
+        <select class="form-control" id="MaCBNV" name="MaCBNV" required>
+            <option value="">Select CBNV</option>
+        </select>
     </div>
+
+    <!-- PhongBan select list -->
     <div class="form-group">
-        <label for="MaPhongBan">MaPhongBan</label>
-        <input type="text" class="form-control" id="MaPhongBan" name="MaPhongBan" />
+        <label for="MaPhongBan">PhongBan</label>
+        <select class="form-control" id="MaPhongBan" name="MaPhongBan">
+            <option value="">Select PhongBan</option>
+        </select>
     </div>
+
+    <!-- ChucVu select list -->
     <div class="form-group">
-        <label for="MaChucVu">MaChucVu</label>
-        <input type="text" class="form-control" id="MaChucVu" name="MaChucVu" />
+        <label for="MaChucVu">ChucVu</label>
+        <select class="form-control" id="MaChucVu" name="MaChucVu">
+            <option value="">Select ChucVu</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="NgayChuyen">NgayChuyen</label>
@@ -28,3 +51,5 @@
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+

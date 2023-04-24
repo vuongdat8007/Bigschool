@@ -11,6 +11,7 @@ namespace Bigschool_TH_11.Models
     public class ThayDoi
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
 
