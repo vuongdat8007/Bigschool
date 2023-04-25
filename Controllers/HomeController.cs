@@ -19,7 +19,7 @@ namespace Bigschool_TH_11.Controllers
         }
 
 
-        public ActionResult Index()
+        public ActionResult Courses()
         {
             var upcomingCourses = _dbContext.Courses
                 .Include(c => c.Lecturer)
@@ -35,9 +35,13 @@ namespace Bigschool_TH_11.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Bigschool - Phần Mềm Quản Lý Trường Tiểu Học";
 
             return View();
         }

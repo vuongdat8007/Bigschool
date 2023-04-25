@@ -1,140 +1,105 @@
-﻿@model Bigschool_TH_11.ViewModels.CoursesViewModel
-@{
-    ViewBag.Title = "Home Page";
+﻿@{
+    ViewBag.Title = "Index";
+    ViewBag.ActiveMenu = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Dashboard</h2>
 
-@*<div class="jumbotron">
-    <ul>
-        @foreach (var course in Model.UpcomingCourses)
-        {
-            <li>
-                @course.DateTime - @course.Lecturer.Name
-            </li>
-        }
-    </ul>
-</div>*@
-
-<div class="row mt-5 pt-5">
-    <ul class="course">
-        @foreach (var course in Model.UpcomingCourses)
-        {
-            if (!course.IsCancelled)
-            {
-                <li>
-                    <div class="date">
-                        <div class="month">
-                            @course.DateTime.ToString("MM")
-                        </div>
-                        <div class="day">
-                            @course.DateTime.ToString("dd")
-                        </div>
-                    </div>
-                    <div class="details">
-                        <span class="lecturer">
-                            @course.Lecturer.Name
-                            @if (Model.ShowAction)
-                            {
-                                <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
-                            }
-                        </span>
-                        <span class="category">
-                            @course.Category.Name
-                        </span>
-                        @if (Model.ShowAction)
-                        {
-                            <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
-                        }
-                    </div>
-
-                </li>
-            }
-            else
-            {
-    <li>
-        <div class="date">
-            <div class="close">
-                Cancelled
-            </div>
-            <div class="month">
-                @course.DateTime.ToString("MM")
-            </div>
-            <div class="day">
-                @course.DateTime.ToString("dd")
-            </div>
-        </div>
-        <div class="details">
-            <span class="lecturer">
-                @course.Lecturer.Name
-            </span>
-            <span class="category">
-                @course.Category.Name
-            </span>
-        </div>
-        
-    </li>
-             }
-        }
-         </ul>
-    
+<div class="row">
+    <div class="col-md-6">
+        <canvas id="cbnvChart"></canvas>
+    </div>
+    <div class="col-md-6">
+        <canvas id="ktklChart"></canvas>
+    </div>
 </div>
-@section scripts
-{
+
+@section scripts {
     <script>
-        $(document).ready(function () {
-            CoursesController.init();
-
-            /*$(".js-toggle-attendance").click(function (e) {
-                var button = $(e.target);
-                if (button.hasClass("btn-default")) {
-                    $.post("/api/attendances", { courseID: button.attr("data-course-id") })
-                        .done(function () {
-                            button
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Going")
-                        })
-                        .fail(function () {
-                            alert("Something failed!");
-                        });
-                } else {
-                    $.ajax({
-                        url: "/api/attendances/" + button.attr("data-source-id"),
-                        method: "DELETE"
-                    })
-                        .done(function () {
-                            button.removeClass("btn-info").addClass("btn-default").text("Going?")
-                        })
-                        .fail(function () {
-                            alert("Something went wrong!");
-                        });
+        // CBNV chart
+        var ctxCBNV = document.getElementById('cbnvChart').getContext('2d');
+        var chartCBNV = new Chart(ctxCBNV, {
+            type: 'bar',
+            data: {
+                labels: [], // Add labels for CBNV data
+                datasets: [{
+                    label: 'CBNV Data',
+                    data: [], // Add CBNV data
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
-                
-            });*/
-
-            /*$(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-                if (button.hasClass("btn-default")) {
-                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                        .done(function () {
-                            button.text("Following").removeClass("btn-default")
-                                .addClass("btn-success");
-                        })
-                        .fail(function () {
-                            alert("Something failed!");
-                        });
-                } else {
-                    $.ajax({
-                        url: "/api/followings/" + button.attr("data-user-id"),
-                        method: "DELETE"
-                    })
-                        .done(function () {
-                            button.removeClass("btn-success").addClass("btn-default").text("Following?")
-                        })
-                        .fail(function () {
-                            alert("Something went wrong!");
-                        });
-                }
-            });*/
+            }
         });
+
+        // KhenThuongKyLuat chart
+        var ctxKTKL = document.getElementById('ktklChart').getContext('2d');
+        var chartKTKL = new Chart(ctxKTKL, {
+            type: 'pie',
+            data: {
+                labels: [], // Add labels for KhenThuongKyLuat data
+                datasets: [{
+                    data: [], // Add KhenThuongKyLuat data
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        $.ajax({
+            url: '/api/CBNV',
+            type: 'GET',
+            success: function (data) {
+                // Process the data to create labels and chart data
+                var labels = [];
+                var chartData = [];
+
+                data.forEach(function (cbnv) {
+                    labels.push(cbnv.HoTen);
+                    chartData.push(cbnv.NgaySinh); // Replace 'someValue' with the property you want to display
+                });
+                // Update the chart with the fetched data
+                chartCBNV.data.labels = labels;
+                chartCBNV.data.datasets[0].data = chartData;
+                chartCBNV.update();
+            }
+        });
+
+        // Fetch and update the KhenThuongKyLuat chart
+        $.ajax({
+            url: '/api/KhenThuongKyLuatsApi',
+            type: 'GET',
+            success: function (data) {
+                // Process the data to create labels and chart data
+                var labels = [];
+                var chartData = [];
+                data.forEach(function (ktkl) {
+                    labels.push(ktkl.TenLyDo);
+                    chartData.push(ktkl.MaKTKL); // Replace 'someValue' with the property you want to display
+                });
+
+                // Update the chart with the fetched data
+                chartKTKL.data.labels = labels;
+                chartKTKL.data.datasets[0].data = chartData;
+                chartKTKL.update();
+            }
+        });
+
     </script>
-    }
+}
