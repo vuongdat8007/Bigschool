@@ -503,7 +503,7 @@ function openBangCapModal(cbnvId) {
 
 function fetchPhongBans() {
     $.ajax({
-        url: '/api/PhongBansApi',
+        url: '/api/PhongBanApi',
         type: 'GET',
         dataType: 'json',
         success: function (data) {

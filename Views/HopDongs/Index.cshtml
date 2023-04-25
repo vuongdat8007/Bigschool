@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Bigschool_TH_11.Models.HopDong>
+
+@{
+    ViewBag.Title = "Danh Sách Hợp Đồng";
+    ViewBag.ActiveMenu = "HopDong";
+    ViewBag.ActiveSub = "IndexHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiHopDong)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiHopDong)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaHopDong }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaHopDong }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaHopDong })
+        </td>
+    </tr>
+}
+
+</table>

@@ -61,15 +61,15 @@
 </div>
 
 @section scripts {
-    <script>
-
+<script>
+var thayDoiTable;
 $(document).ready(function () {
             $('#btnAddNew').on('click', function () {
                 // Clear the form fields and show the Create/Edit Modal
                 $('#createEditForm')[0].reset();
                 $('#createEditModal').modal('show');
             });
-            var table = $('#thayDoiTable').DataTable({
+            thayDoiTable = $('#thayDoiTable').DataTable({
                 ajax: {
                     url: '/api/ThayDoiApi',
                     dataSrc: ''
@@ -146,7 +146,7 @@ $(document).ready(function () {
                     type: 'DELETE',
                     success: function () {
                         // Update the DataTable
-                        table.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).remove().draw();
+                        thayDoiTable.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).remove().draw();
                         // Hide the Delete Modal
                         $('#deleteModal').modal('hide');
                     }
@@ -178,7 +178,7 @@ $(document).ready(function () {
                         // Update the DataTable
                         if (id) {
                             // Edit case
-                            table.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).data(data).draw();
+                            thayDoiTable.row($('#thayDoiTable button[data-id="' + id + '"]').parents('tr')).data(data).draw();
                         } else {
                             // Create case
                             //table.row.add(data).draw(); // Data inserted into Datatable incorrectly
@@ -188,6 +188,9 @@ $(document).ready(function () {
                                 type: 'GET',
                                 success: function (thayDoi) {
                                     //TODO: Reload datatable wuh new thayDoi data
+                                    thayDoiTable.clear().draw();
+                                    thayDoiTable.rows.add(thayDoi);
+                                    thayDoiTable.columns.adjust().draw();
                                 }
                             });
                         }

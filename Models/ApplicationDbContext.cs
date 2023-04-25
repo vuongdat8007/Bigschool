@@ -30,6 +30,8 @@ namespace Bigschool_TH_11.Models
         public DbSet<BangCapCBNVChuyenNganh> BangCapCBNVChuyenNganhs { get; set; }
         public DbSet<HopDongCBNV> HopDongCBNVs { get; set; }
         public DbSet<ChucVuQuyenTruyCap> ChucVuQuyenTruyCaps { get; set; }
+        public DbSet<CBNVKhenThuongKyLuat> CBNVKhenThuongKyLuats { get; set; }
+        public DbSet<KhenThuongKyLuat> KhenThuongKyLuats { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

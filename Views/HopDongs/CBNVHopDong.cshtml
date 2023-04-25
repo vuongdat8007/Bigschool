@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Hợp Đồng CBNV";
+    ViewBag.ActiveMenu = "HopDong";
+    ViewBag.ActiveSub = "CBNVHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CBNV HopDong</h2>
+
+<table id="cbnvHopDongTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>CBNV</th>
+            <th>HopDong</th>
+            <th>NgayKyHopDong</th>
+            <th>NgayKetThucHopDong</th>
+            <th>TinhTrangHopDong</th>
+            <th>GhiChu</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-primary" id="btnAddNew">Add New</button>
+
+@Html.Partial("_CreateEditCBNVHopDongPartial")
+@Html.Partial("_DeleteCBNVHopDongPartial")
+
+@section scripts {
+    <script src="~/Scripts/app/cbnvHopDong.js"></script>
+}
+

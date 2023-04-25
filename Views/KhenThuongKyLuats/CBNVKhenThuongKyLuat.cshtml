@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "CBNV: Khen Thưởng / Kỷ Luật";
+    ViewBag.ActiveMenu = "KhenThuongKyLuat";
+    ViewBag.ActiveSub = "CBNVKhenThuongKyLuat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CBNV Khen Thuong Ky Luat Management</h2>
+
+<table id="cbnvKhenThuongKyLuatTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>CBNV</th>
+            <th>Khen Thưởng / Kỷ Luật</th>
+            <th>Ngày</th>
+            <th>Ghi Chú</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<button id="btnAddNew" class="btn btn-primary">Add New Record</button>
+
+@Html.Partial("_CreateEditCBNVKhenThuongKyLuatPartial")
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Load the dropdown lists
+            loadCBNVList();
+            loadKhenThuongKyLuatList();
+
+            var table = $('#cbnvKhenThuongKyLuatTable').DataTable({
+                ajax: {
+                    url: '/api/CBNVKhenThuongKyLuatApi',
+                    dataSrc: ''
+                },
+                dom: "Blfrtip",
+                columns: [
+                    { data: 'ID' },
+                    { data: 'CBNV.HoTen' },
+                    { data: 'KhenThuongKyLuat.TenLyDo' },
+                    { data: 'KhenThuongKyLuat.NgayKhenThuongKyLuat' },
+                    { data: 'KhenThuongKyLuat.GhiChu' },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-warning btnEdit" data-id="' + data.ID + '">Edit</button>' +
+                                ' <button class="btn btn-danger btnDelete" data-id="' + data.ID + '">Delete</button>';
+                        }
+                    }
+                ]
+            });
+
+            $('#btnAddNew').click(function () {
+                $('#recordId').val('');
+                $('#createEditModalLabel').text('Add New Record');
+                $('#createEditForm')[0].reset();
+                $('#createEditModal').modal('show');
+            });
+
+            $('#createEditForm').submit(function (event) {
+                event.preventDefault();
+
+                var recordId = $('#recordId').val();
+                var url = '/api/CBNVKhenThuongKyLuatApi';
+                var type = 'POST';
+                var formData = {
+                    ID: $('#ID').val(),
+                    MaCBNV: $('#MaCBNV').val(),
+                    MaKTKL: $('#MaKTKL').val(),
+                    NgayKhenThuongKyLuat: moment($('#NgayKhenThuongKyLuat').val()).format("YYYY-MM-DD"),
+                    GhiChu: $('#GhiChu').val()
+                };
+
+                if (recordId) {
+                    url += '/' + recordId;
+                    type = 'PUT';
+                }
+
+                $.ajax({
+                    url: url,
+                    type: type,
+                    data: $(this).serialize(),
+                    success: function () {
+                        $('#createEditModal').modal('hide');
+                        table.ajax.reload();
+                    }
+                });
+            });
+
+            $('#cbnvKhenThuongKyLuatTable tbody').on('click', '.btnEdit', function () {
+                var recordId = $(this).data('id');
+
+                $.ajax({
+                    url: '/api/CBNVKhenThuongKyLuatApi/' + recordId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#recordId').val(data.ID);
+                        $('#MaCBNV').val(data.MaCBNV);
+                        $('#MaKTKL').val(data.MaKTKL);
+
+                        $('#createEditModalLabel').text('Edit Record');
+                        $('#createEditModal').modal('show');
+                    }
+                });
+            });
+
+            $('#cbnvKhenThuongKyLuatTable tbody').on('click', '.btnDelete', function () {
+                var recordId = $(this).data('id');
+                $('#deleteModal').data('recordId', recordId);
+                $('#deleteModal').modal('show');
+            });
+
+            $('#btnConfirmDelete').click(function () {
+                var recordId = $('#deleteModal').data('recordId');
+
+                $.ajax({
+                    url: '/api/CBNVKhenThuongKyLuatApi/' + recordId,
+                    type: 'DELETE',
+                    success: function () {
+                        $('#deleteModal').modal('hide');
+                        table.ajax.reload();
+                    }
+                });
+            });
+        });
+
+        function loadCBNVList() {
+            $.ajax({
+                url: '/api/CBNV',
+                type: 'GET',
+                success: function (data) {
+                    $('#MaCBNV').empty();
+                    $('#MaCBNV').append('<option value="">Chọn CBNV</option>');
+                    $.each(data, function (index, item) {
+                        $('#MaCBNV').append('<option value="' + item.CBNV.MaCBNV + '">' + item.CBNV.HoTen + '</option>');
+                    });
+                }
+            });
+        }
+
+        function loadKhenThuongKyLuatList() {
+            $.ajax({
+                url: '/api/KhenThuongKyLuatsApi', //TODO: create this api to get list of KhenThuongKyLuat records
+                type: 'GET',
+                success: function (data) {
+                    $('#MaKTKL').empty();
+                    $('#MaKTKL').append('<option value="">Chọn KhenThuong / KyLuat</option>');
+                    $.each(data, function (index, item) {
+                        $('#MaKTKL').append('<option value="' + item.MaKTKL + '"> [' + item.MaKTKL + '] ' + item.TenLyDo + '</option>');
+                    });
+                }
+            });
+        }
+    </script>
+}

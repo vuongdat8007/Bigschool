@@ -7,21 +7,20 @@ using System.Web;
 
 namespace Bigschool_TH_11.Models
 {
-    public class HopDongCBNV
+    public class CBNVKhenThuongKyLuat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         [ForeignKey("CBNV")]
-        public string MaCBNV { get; set; }
+        public String MaCBNV { get; set; }
         public CBNV CBNV { get; set; }
 
-        [ForeignKey("HopDong")]
-        public string MaHopDong { get; set; }
-        public HopDong HopDong { get; set; }
-        public DateTime NgayKyHopDong { get; set; }
-        public DateTime? NgayKetThucHopDong { get; set; }
-        public string TinhTrangHopDong { get; set; }
-        public string GhiChu { get; set; }
+        [ForeignKey("KhenThuongKyLuat")]
+        public String MaKTKL { get; set; }
+        public KhenThuongKyLuat KhenThuongKyLuat { get; set; }
+
+        public DateTime NgayKhenThuongKyLuat { get; set; }
+        public String GhiChu { get; set; }
     }
 }

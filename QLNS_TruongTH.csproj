@@ -181,9 +181,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\BangCapCBNVChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CBNVController.cs" />
+    <Compile Include="Controllers\Api\CBNVHopDongApiController.cs" />
+    <Compile Include="Controllers\Api\CBNVKhenThuongKyLuatApiController.cs" />
     <Compile Include="Controllers\Api\ChucVuApiController.cs" />
     <Compile Include="Controllers\Api\ChuyenNganhController.cs" />
     <Compile Include="Controllers\Api\CoursesController.cs" />
+    <Compile Include="Controllers\Api\KhenThuongKyLuatsApiController.cs" />
     <Compile Include="Controllers\Api\PhongBanApiController.cs" />
     <Compile Include="Controllers\Api\ThayDoiApiController.cs" />
     <Compile Include="Controllers\AttendancesController.cs" />
@@ -196,6 +199,9 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Api\HopDongsApiController.cs" />
+    <Compile Include="Controllers\HopDongsController.cs" />
+    <Compile Include="Controllers\KhenThuongKyLuatsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\QuyenTruyCapController.cs" />
@@ -307,6 +313,26 @@
     <Compile Include="Migrations\202304240825241_AddAutoIdGenerateForThayDoiModel.designer.cs">
       <DependentUpon>202304240825241_AddAutoIdGenerateForThayDoiModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304241449244_ModifyCBNVHopDongOneToMany.cs" />
+    <Compile Include="Migrations\202304241449244_ModifyCBNVHopDongOneToMany.designer.cs">
+      <DependentUpon>202304241449244_ModifyCBNVHopDongOneToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241635381_ModifyHopDongCBNV_NgayKetThucNullable.cs" />
+    <Compile Include="Migrations\202304241635381_ModifyHopDongCBNV_NgayKetThucNullable.designer.cs">
+      <DependentUpon>202304241635381_ModifyHopDongCBNV_NgayKetThucNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241655279_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models.cs" />
+    <Compile Include="Migrations\202304241655279_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models.designer.cs">
+      <DependentUpon>202304241655279_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241658333_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models1.cs" />
+    <Compile Include="Migrations\202304241658333_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models1.designer.cs">
+      <DependentUpon>202304241658333_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304241713449_updateCBNVKhenThuongKyLuat.cs" />
+    <Compile Include="Migrations\202304241713449_updateCBNVKhenThuongKyLuat.designer.cs">
+      <DependentUpon>202304241713449_updateCBNVKhenThuongKyLuat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -318,9 +344,12 @@
     <Compile Include="Models\CBNV.cs" />
     <Compile Include="Models\CBNVChuyenNganh.cs" />
     <Compile Include="Models\CBNVCongTac.cs" />
+    <Compile Include="Models\CBNVKhenThuongKyLuat.cs" />
+    <Compile Include="Models\KhenThuongKyLuat.cs" />
     <Compile Include="Models\ViewModels\BangCapCBNVChuyenNganhViewModel.cs" />
     <Compile Include="ViewModels\CBNVCongTacListViewModel.cs" />
     <Compile Include="ViewModels\CBNVCongTacViewModel.cs" />
+    <Compile Include="ViewModels\CBNVKhenThuongKyLuatViewModel.cs" />
     <Compile Include="ViewModels\EditAssignedCBNVsViewModel.cs" />
     <Compile Include="ViewModels\CBNVChucVuQuyenTruyCapViewModel.cs" />
     <Compile Include="Models\ViewModels\CBNVViewModel.cs" />
@@ -361,6 +390,7 @@
     <Content Include="Scripts\app\cbnv - Copy.js" />
     <Content Include="Scripts\app\cbnv.js" />
     <Content Include="Scripts\app\CBNVCongTacManage.js" />
+    <Content Include="Scripts\app\cbnvHopDong.js" />
     <Content Include="Scripts\app\coursesController.js" />
     <Content Include="Scripts\app\MyValidators.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -674,12 +704,30 @@
     <Content Include="Views\ChucVu\Delete.cshtml" />
     <Content Include="Views\ThayDoi\Index.cshtml" />
     <Content Include="Views\ThayDoi\_CreateEditThayDoiPartial.cshtml" />
+    <Content Include="Views\HopDongs\Create.cshtml" />
+    <Content Include="Views\HopDongs\Delete.cshtml" />
+    <Content Include="Views\HopDongs\Details.cshtml" />
+    <Content Include="Views\HopDongs\Edit.cshtml" />
+    <Content Include="Views\HopDongs\Index.cshtml" />
+    <Content Include="Views\HopDongs\CBNVHopDong.cshtml" />
+    <Content Include="Views\HopDongs\_CreateEditCBNVHopDongPartial.cshtml" />
+    <Content Include="Views\HopDongs\_DeleteCBNVHopDongPartial.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\Create.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\Delete.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\Details.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\Edit.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\Index.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\CBNVKhenThuongKyLuat.cshtml" />
+    <Content Include="Views\KhenThuongKyLuats\_CreateEditCBNVKhenThuongKyLuatPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="startbootstrap\vendor\" />
     <Folder Include="Views\CBNVCongTacView\" />
+    <Folder Include="Views\CBNVHopDongApi\" />
+    <Folder Include="Views\CBNVKhenThuongKyLuatApi\" />
     <Folder Include="Views\ChucVuApi\" />
+    <Folder Include="Views\HopDongsApi\" />
     <Folder Include="Views\PhongBanApi\" />
     <Folder Include="Views\PhongBan\" />
     <Folder Include="Views\ThayDoiApi\" />
@@ -772,6 +820,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304240825241_AddAutoIdGenerateForThayDoiModel.resx">
       <DependentUpon>202304240825241_AddAutoIdGenerateForThayDoiModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241449244_ModifyCBNVHopDongOneToMany.resx">
+      <DependentUpon>202304241449244_ModifyCBNVHopDongOneToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241635381_ModifyHopDongCBNV_NgayKetThucNullable.resx">
+      <DependentUpon>202304241635381_ModifyHopDongCBNV_NgayKetThucNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241655279_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models.resx">
+      <DependentUpon>202304241655279_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241658333_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models1.resx">
+      <DependentUpon>202304241658333_KhenThuongKyLuat_CBNVKhenThuongKyLuat_Models1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304241713449_updateCBNVKhenThuongKyLuat.resx">
+      <DependentUpon>202304241713449_updateCBNVKhenThuongKyLuat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

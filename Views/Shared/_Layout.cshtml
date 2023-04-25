@@ -76,12 +76,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-lock"></i>
                     <span>Hành Chánh</span>
                 </a>
-                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Phòng Ban:</h6>
                         <hr class="sidebar-divider bg-info">
@@ -100,7 +100,16 @@
                         <hr class="sidebar-divider bg-info">
                         <a href="@Url.Action("Create", "ChucVu")" class="collapse-item @(ViewBag.ActiveSub == "CreateChucVu" ? "badge badge-secondary text-white" : "")">Create</a>
                         <a href="@Url.Action("Index", "ChucVu")" class="collapse-item @(ViewBag.ActiveSub == "IndexChucVu" ? "badge badge-secondary text-white" : "")">Index</a>
-
+                        <h6 class="collapse-header">Hơp Đồng:</h6>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "HopDongs")" class="collapse-item @(ViewBag.ActiveSub == "CreateHopDong" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "HopDongs")" class="collapse-item @(ViewBag.ActiveSub == "IndexHopDong" ? "badge badge-secondary text-white" : "")">Index</a>
+                        <a href="@Url.Action("CBNVHopDong", "HopDongs")" class="collapse-item @(ViewBag.ActiveSub == "CBNVHopDong" ? "badge badge-secondary text-green" : "")">Q.Lý Hợp Đồng CBNV</a>
+                        <h6 class="collapse-header">Khen Thưởng/Kỷ Luật:</h6>
+                        <hr class="sidebar-divider bg-info">
+                        <a href="@Url.Action("Create", "KhenThuongKyLuats")" class="collapse-item @(ViewBag.ActiveSub == "CreateKhenThuongKyLuat" ? "badge badge-secondary text-white" : "")">Create</a>
+                        <a href="@Url.Action("Index", "KhenThuongKyLuats")" class="collapse-item @(ViewBag.ActiveSub == "IndexKhenThuongKyLuat" ? "badge badge-secondary text-white" : "")">Index</a>
+                        <a href="@Url.Action("CBNVKhenThuongKyLuat", "KhenThuongKyLuats")" class="collapse-item @(ViewBag.ActiveSub == "CBNVKhenThuongKyLuat" ? "badge badge-secondary text-green" : "")">Khen Thưởng/K.L. CBNV</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Công tác:</h6>
                         <hr class="sidebar-divider bg-success">
