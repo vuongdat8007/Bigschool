@@ -1,32 +1,65 @@
 ﻿@{
-    ViewBag.Title = "Index";
-    ViewBag.ActiveMenu = "Index";
+    ViewBag.Title = "Trang thông tin Quản lý Trường Tiểu Học";
+    ViewBag.ActiveMenu = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Dashboard</h2>
 
+@*<div class="row">
+        <div class="col-md-6">
+            <canvas id="cbnvChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="ktklChart"></canvas>
+        </div>
+    </div>*@
 <div class="row">
-    <div class="col-md-6">
-        <canvas id="cbnvChart"></canvas>
+    <div class="card">
+        <div class="card-header">Số Nhân Viên phân bố theo Chuyên Nghành</div>
+        <div class="card-body">
+            <canvas id="employeesPerSpecializationChart"></canvas>
+        </div>
     </div>
-    <div class="col-md-6">
-        <canvas id="ktklChart"></canvas>
+    <div class="card">
+        <div class="card-header">Tỷ lệ tuổi và thâm niên công tác</div>
+        <div class="card-body">
+            <canvas id="cbnvChart"></canvas>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Phân bổ CBNV: Chuyên Ngành - Giới tính</div>
+        <div class="card-body">
+            <canvas id="employeeChart"></canvas>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">Tỷ lệ Khen Thưởng / Kỷ Luật</div>
+        <div class="card-body">
+            <canvas id="ktklChart"></canvas>
+        </div>
     </div>
 </div>
 
 @section scripts {
     <script>
-        // CBNV chart
-        var ctxCBNV = document.getElementById('cbnvChart').getContext('2d');
-        var chartCBNV = new Chart(ctxCBNV, {
+
+// CBNV chart
+var ctxCBNV = document.getElementById('cbnvChart').getContext('2d');
+var chartCBNV = new Chart(ctxCBNV, {
             type: 'bar',
             data: {
                 labels: [], // Add labels for CBNV data
                 datasets: [{
-                    label: 'CBNV Data',
-                    data: [], // Add CBNV data
+                    label: 'Tuổi CBNV',
+                    data: [], // Add CBNV NgaySinh data
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Thâm Niên Công Tác',
+                    data: [], // Add CBNV ThamNienCongTac data
+                    backgroundColor: 'rgba(88, 102, 102, 0.2)',
+                    borderColor: 'rgba(85, 92, 92, 1)',
                     borderWidth: 1
                 }]
             },
@@ -37,11 +70,11 @@
                     }
                 }
             }
-        });
+});
 
-        // KhenThuongKyLuat chart
-        var ctxKTKL = document.getElementById('ktklChart').getContext('2d');
-        var chartKTKL = new Chart(ctxKTKL, {
+// KhenThuongKyLuat chart
+var ctxKTKL = document.getElementById('ktklChart').getContext('2d');
+var chartKTKL = new Chart(ctxKTKL, {
             type: 'pie',
             data: {
                 labels: [], // Add labels for KhenThuongKyLuat data
@@ -60,29 +93,104 @@
                     borderWidth: 1
                 }]
             }
-        });
+});
 
-        $.ajax({
+$.ajax({
             url: '/api/CBNV',
             type: 'GET',
             success: function (data) {
                 // Process the data to create labels and chart data
                 var labels = [];
                 var chartData = [];
+                var thamNienData = [];
+                //var quocTichData = [];
 
                 data.forEach(function (cbnv) {
-                    labels.push(cbnv.HoTen);
-                    chartData.push(cbnv.NgaySinh); // Replace 'someValue' with the property you want to display
+                    labels.push(cbnv.CBNV.HoTen);
+
+                    var birthDate = moment(cbnv.CBNV.NgaySinh); // Replace 'NgaySinh' with the correct property name for the birth date
+                    var currentDateTime = moment();
+                    var age = currentDateTime.diff(birthDate, 'years');
+                    chartData.push(age); // Replace 'someValue' with the property you want to display
+                    thamNienData.push(cbnv.CBNV.ThamNienCongTac);
+                    //quocTichData.push(cbnv.CBNV.QuocTich);
                 });
                 // Update the chart with the fetched data
                 chartCBNV.data.labels = labels;
                 chartCBNV.data.datasets[0].data = chartData;
-                chartCBNV.update();
-            }
-        });
+                chartCBNV.data.datasets[1].data = thamNienData;
+                //chartCBNV.data.datasets[2].data = quocTichData;;
 
-        // Fetch and update the KhenThuongKyLuat chart
-        $.ajax({
+                chartCBNV.update();
+
+                createEmployeesPerSpecializationChart(data);
+
+                // Chart for CBNV per ChuyenNganh per Gender
+                const specializations = {};
+                data.forEach(employee => {
+                    const chuyenNganhs = employee.ChuyenNganhs;
+                    const gender = employee.CBNV.GioiTinh;
+
+                    chuyenNganhs.forEach(chuyenNganh => {
+                        const specialization = chuyenNganh.TenChuyenNganh;
+
+                        if (!specializations[specialization]) {
+                            specializations[specialization] = { male: 0, female: 0 };
+                        }
+
+                        if (gender === 'nam') {
+                            specializations[specialization].male++;
+                        } else if (gender === 'nu') {
+                            specializations[specialization].female++;
+                        }
+                    });
+                });
+                const ctxCNperGender = document.getElementById('employeeChart').getContext('2d');
+                const labelsCNperGender = Object.keys(specializations);
+                const maleData = labelsCNperGender.map(label => specializations[label].male);
+                const femaleData = labelsCNperGender.map(label => specializations[label].female);
+
+                const chartCNperGender = new Chart(ctxCNperGender, {
+                    type: 'bar',
+                    data: {
+                        labels: labelsCNperGender,
+                        datasets: [
+                            {
+                                label: 'Nam',
+                                data: maleData,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Nữ',
+                                data: femaleData,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Số lượng nhân viên theo chuyên ngành theo giới tính'
+                            }
+                        }
+                    }
+                });
+
+            }
+});
+
+// Fetch and update the KhenThuongKyLuat chart
+$.ajax({
             url: '/api/KhenThuongKyLuatsApi',
             type: 'GET',
             success: function (data) {
@@ -99,7 +207,47 @@
                 chartKTKL.data.datasets[0].data = chartData;
                 chartKTKL.update();
             }
-        });
+});
+
+function createEmployeesPerSpecializationChart(data) {
+            var ctx = document.getElementById("employeesPerSpecializationChart").getContext("2d");
+
+            var specializationCounts = {};
+
+            data.forEach(function (item) {
+                item.ChuyenNganhs.forEach(function (chuyenNganh) {
+                    if (!specializationCounts[chuyenNganh.TenChuyenNganh]) {
+                        specializationCounts[chuyenNganh.TenChuyenNganh] = 0;
+                    }
+                    specializationCounts[chuyenNganh.TenChuyenNganh]++;
+                });
+            });
+            var labels = Object.keys(specializationCounts);
+            var employeeCounts = Object.values(specializationCounts);
+
+            var chart = new Chart(ctx, {
+                type: "pie", // Change this to "pie" for a pie chart
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Số lượng giáo viên",
+                            data: employeeCounts,
+                            backgroundColor: "rgba(75, 192, 192, 0.2)",
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+}
 
     </script>
 }
