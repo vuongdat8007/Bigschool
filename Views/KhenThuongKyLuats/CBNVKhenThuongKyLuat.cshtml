@@ -42,8 +42,13 @@
                     { data: 'ID' },
                     { data: 'CBNV.HoTen' },
                     { data: 'KhenThuongKyLuat.TenLyDo' },
-                    { data: 'KhenThuongKyLuat.NgayKhenThuongKyLuat' },
-                    { data: 'KhenThuongKyLuat.GhiChu' },
+                    {
+                        data: 'NgayKhenThuongKyLuat',
+                        render: function (data, type, row) {
+                            return moment(data).format("DD-MM-YYYY")
+                        }
+                    },
+                    { data: 'GhiChu' },
                     {
                         data: null,
                         render: function (data, type, row) {
@@ -101,7 +106,8 @@
                         $('#recordId').val(data.ID);
                         $('#MaCBNV').val(data.MaCBNV);
                         $('#MaKTKL').val(data.MaKTKL);
-
+                        $('#NgayKhenThuongKyLuat').val(moment(data.NgayKhenThuongKyLuat).format("YYYY-MM-DD"));
+                        $('#GhiChu').val(data.GhiChu);
                         $('#createEditModalLabel').text('Edit Record');
                         $('#createEditModal').modal('show');
                     }

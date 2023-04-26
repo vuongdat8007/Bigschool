@@ -20,7 +20,7 @@
             <td>@item.MaChucNang</td>
             <td>@item.TenChucNang</td>
             <td>
-                @Html.ActionLink("Edit", "ChucNang", new { id = item.MaChucNang }, new { @class = "btn btn-primary" })
+                <a class="btn btn-secondary" id="@item.MaChucNang" href="@Url.Action("Edit", "ChucNang")">Edit</a>
             </td>
         </tr>
     }

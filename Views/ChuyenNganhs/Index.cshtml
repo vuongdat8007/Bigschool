@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Bigschool_TH_11.Models.ChuyenNganh>
+
+@{
+    ViewBag.Title = "Danh mục Chuyên Ngành";
+    ViewBag.ActiveMenu = "ChuyenNganh";
+    ViewBag.ActiveSub = "IndexChuyenNganh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mt-4">Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaChuyenNganh)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenChuyenNganh)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaChuyenNganh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenChuyenNganh)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MaChuyenNganh }, new { @class = "btn btn-sm btn-info" })
+                        @Html.ActionLink("Details", "Details", new { id = item.MaChuyenNganh }, new { @class = "btn btn-sm btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MaChuyenNganh }, new { @class = "btn btn-sm btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,35 @@
+﻿@model Bigschool_TH_11.Models.ChuyenNganh
+
+@{
+    ViewBag.Title = "T.T. Chi tiết Chuyên Ngành";
+    ViewBag.ActiveMenu = "ChuyenNganh";
+    ViewBag.ActiveSub = "DetailsChuyenNganh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ChuyenNganh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaChuyenNganh)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TenChuyenNganh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaChuyenNganh)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.TenChuyenNganh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaChuyenNganh }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

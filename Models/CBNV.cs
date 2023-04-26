@@ -40,5 +40,12 @@ namespace Bigschool_TH_11.Models
         public string MaPhongBan { get; set; }
         [ForeignKey("MaPhongBan")]
         public virtual PhongBan PhongBan { get; set; }
+
+        // Add a property to store the UserId as a foreign key
+        public string ApplicationUserId { get; set; }
+
+        // Add a navigation property for the ApplicationUser
+        [ForeignKey("ApplicationUserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

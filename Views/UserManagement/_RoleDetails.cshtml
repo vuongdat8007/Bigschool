@@ -1,0 +1,20 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@model Bigschool_TH_11.ViewModels.UserManagementViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">Role Details</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <dl class="row">
+        <dt class="col-sm-4">Role ID</dt>
+        <dd class="col-sm-8">@Model.Id</dd>
+        <dt class="col-sm-4">Role Name</dt>
+        <dd class="col-sm-8">@Model.Name</dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>

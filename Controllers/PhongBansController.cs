@@ -38,6 +38,7 @@ namespace Bigschool_TH_11.Controllers
         }
 
         // GET: PhongBans/Create
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +49,7 @@ namespace Bigschool_TH_11.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Create([Bind(Include = "MaPhongBan,TenPhongBan,SoDienThoai")] PhongBan phongBan)
         {
             if (ModelState.IsValid)
@@ -61,6 +63,7 @@ namespace Bigschool_TH_11.Controllers
         }
 
         // GET: PhongBans/Edit/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
@@ -80,6 +83,7 @@ namespace Bigschool_TH_11.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Edit([Bind(Include = "MaPhongBan,TenPhongBan,SoDienThoai")] PhongBan phongBan)
         {
             if (ModelState.IsValid)
@@ -92,6 +96,7 @@ namespace Bigschool_TH_11.Controllers
         }
 
         // GET: PhongBans/Delete/5
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
@@ -109,6 +114,7 @@ namespace Bigschool_TH_11.Controllers
         // POST: PhongBans/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
             PhongBan phongBan = await db.PhongBans.FindAsync(id);

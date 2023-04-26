@@ -1,4 +1,5 @@
-﻿using Bigschool_TH_11.Models;
+﻿using Bigschool_TH_11.Attributes;
+using Bigschool_TH_11.Models;
 using Bigschool_TH_11.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace Bigschool_TH_11.Controllers
             return View(chucNangs);
         }
 
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public ActionResult Create()
         {
             return View();
@@ -35,6 +37,7 @@ namespace Bigschool_TH_11.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public ActionResult Create(ChucNang chucNang)
         {
             if (!ModelState.IsValid)
@@ -48,6 +51,7 @@ namespace Bigschool_TH_11.Controllers
             return RedirectToAction("Index");
         }
 
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public ActionResult Edit(string id)
         {
             var item = _context.ChucNangs.SingleOrDefault(c => c.MaChucNang == id);
@@ -68,6 +72,7 @@ namespace Bigschool_TH_11.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public ActionResult Save(ChucNangEditViewModel viewModel)
         {
             if (!ModelState.IsValid)

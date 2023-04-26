@@ -1,0 +1,147 @@
+﻿@model Bigschool_TH_11.ViewModels.UserManagementViewModel
+@{
+    ViewBag.Title = "User Management";
+    ViewBag.ActiveMenu = "IndexUserManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>User Management</h2>
+
+<!-- Display the users in a DataTable -->
+<h3>Users</h3>
+<table id="usersTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @*@string.Join(", ", user.Roles.Select(role => role.RoleId))*@
+                    @string.Join(", ", user.Roles.Select(role => Model.Roles.FirstOrDefault(r => r.Id == role.RoleId).Name))
+                </td>
+                <td>
+                    <!-- Add actions for editing and deleting users -->
+                    <a href="javascript:;" class="btn btn-primary user-edit-btn" data-userid="@user.Id">Edit</a>
+                    <a href="javascript:;" class="btn btn-danger user-delete-btn" data-userid="@user.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Display the roles in a DataTable -->
+<h3>Roles</h3>
+<table id="rolesTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Role ID</th>
+            <th>Role Name</th>
+            <th>Chuc Nang</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.Roles)
+        {
+            var quyenTruyCap = Model.QuyenTruyCaps.FirstOrDefault(q => q.TenQuyen == role.Name);
+            <tr>
+                <td>@role.Id</td>
+                <td>@role.Name</td>
+                <td>@(quyenTruyCap != null ? quyenTruyCap.ChucNang.TenChucNang : "")</td>
+                <td>
+                    <!-- Add actions for editing and deleting roles -->
+                    <a href="javascript:;" class="btn btn-primary role-edit-btn" data-roleid="@role.Id">Edit</a>
+                    <a href="javascript:;" class="btn btn-danger role-delete-btn" data-roleid="@role.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<!-- Add buttons for creating new roles and users -->
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-primary mr-2">Create Role</button>
+    <button type="button" class="btn btn-primary">Create User</button>
+</div>
+
+
+<!-- User Details Modal -->
+<div class="modal fade" id="userDetailsModal" tabindex="-1" role="dialog" aria-labelledby="userDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="userDetailsModalContent">
+            <!-- User details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Role Details Modal -->
+<div class="modal fade" id="roleDetailsModal" tabindex="-1" role="dialog" aria-labelledby="roleDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="roleDetailsModalContent">
+            <!-- Role details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $('#usersTable').DataTable();
+        $('#rolesTable').DataTable();
+    });
+
+    // Handle user details button click
+    $('.user-details-btn').on('click', function () {
+        var userId = $(this).data('userid');
+        $.get('@Url.Action("UserDetails", "UserManagement")', { id: userId }, function (data) {
+            $('#userDetailsModalContent').html(data);
+            $('#userDetailsModal').modal('show');
+        });
+    });
+
+    // Handle role details button click
+    $('.role-details-btn').on('click', function () {
+        var roleId = $(this).data('roleid');
+        $.get('@Url.Action("RoleDetails", "UserManagement")', { id: roleId }, function (data) {
+            $('#roleDetailsModalContent').html(data);
+            $('#roleDetailsModal').modal('show');
+        });
+    });
+
+    // Handle user edit button click
+    $('body').on('click', '.user-edit-btn', function () {
+        var userId = $(this).data('userid');
+        // Call the edit user action in your controller and update the UI accordingly
+    });
+
+    // Handle user delete button click
+    $('body').on('click', '.user-delete-btn', function () {
+        var userId = $(this).data('userid');
+        // Call the delete user action in your controller and update the UI accordingly
+    });
+
+    // Handle role edit button click
+    $('body').on('click', '.role-edit-btn', function () {
+        var roleId = $(this).data('roleid');
+        // Call the edit role action in your controller and update the UI accordingly
+    });
+
+    // Handle role delete button click
+    $('body').on('click', '.role-delete-btn', function () {
+        var roleId = $(this).data('roleid');
+        // Call the delete role action in your controller and update the UI accordingly
+    });
+</script>
+}

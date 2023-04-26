@@ -76,12 +76,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
+                <a class="nav-link @(ViewBag.ActiveMenu == "ChuyenNganh" || ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "bg-info" : "collapsed")" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-lock"></i>
-                    <span>Hành Chánh</span>
+                    <span>Hành Chánh / Quản Trị</span>
                 </a>
-                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse @(ViewBag.ActiveMenu == "ChuyenNganh" || ViewBag.ActiveMenu == "PhongBan" || ViewBag.ActiveMenu == "ChucNang" || ViewBag.ActiveMenu == "ChucVu" || ViewBag.ActiveMenu == "QuyenTruyCap" || ViewBag.ActiveMenu == "CongTac" || ViewBag.ActiveMenu == "HopDong" || ViewBag.ActiveMenu == "CBNVHopDong" || ViewBag.ActiveMenu == "KhenThuongKyLuat" ? "show" : "")" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Phòng Ban:</h6>
                         <hr class="sidebar-divider bg-info">
@@ -116,17 +116,28 @@
                         <a href="@Url.Action("Manage", "CBNVCongTac")" class="collapse-item @(ViewBag.ActiveSub == "ManageCongTac" ? "badge badge-secondary text-white" : "")">Quản lý Công Tác CBNV</a>
                         <a href="@Url.Action("Index", "ThayDoi")" class="collapse-item text-gray-700 @(ViewBag.ActiveSub == "ThayDoiCongTac" ? "badge badge-secondary text-white" : "")">Thay Đổi Công Tác CBNV</a>
                         <a class="collapse-item" href="#">Report</a>
+                        <h6 class="collapse-header">Chuyên Ngành:</h6>
+                        <hr class="sidebar-divider bg-success">
+                        <a href="@Url.Action("Index", "ChuyenNganhs")" class="collapse-item @(ViewBag.ActiveSub == "IndexChuyenNganh" ? "badge badge-secondary text-white" : "")">Quản lý Chuyên Ngành</a>
+                        <a href="@Url.Action("Create", "ChuyenNganhs")" class="collapse-item text-gray-700 @(ViewBag.ActiveSub == "CreateChuyenNganh" ? "badge badge-secondary text-white" : "")">Tạo mới Chuyên Ngành</a>
+                        <a class="collapse-item" href="#">Report</a>
                     </div>
                 </div>
             </li>
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Quản lý Truy Cập
             </div>
-            <li class="nav-item @(ViewBag.ActiveMenu == "About" ? "active bg-info" : "")">
-                <a class="nav-link" href="@Url.Action("About", "Home")">
+            <li class="nav-item @(ViewBag.ActiveMenu == "IndexUserManagement" ? "active bg-info" : "")">
+                <a class="nav-link" href="@Url.Action("Index", "UserManagement")">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>About</span>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li class="nav-item @(ViewBag.ActiveMenu == "ManageUserManagement" ? "active bg-info" : "")">
+                <a class="nav-link" href="@Url.Action("Manage", "UserManagement")">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Roles / Quyền Truy Cập</span>
                 </a>
             </li>
             <li class="nav-item @(ViewBag.ActiveMenu == "CreateCourses" ? "active bg-info" : "")">
@@ -185,27 +196,6 @@
             <div class="sidebar-heading">
                 Addons
             </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item @(ViewBag.ActiveMenu == "Charts" ? "active bg-info" : "")">
