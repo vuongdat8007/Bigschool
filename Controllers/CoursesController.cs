@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -122,6 +123,23 @@ namespace Bigschool_TH_11.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+        
+        // Manually do cascading delete, Usage: await DeleteCourseWithAttendances(courseId);
+        private async Task DeleteCourseWithAttendances(int courseId) //
+        {
+            var course = await _context.Courses.Include(c => c.Attendances).SingleOrDefaultAsync(c => c.Id == courseId);
+
+            if (course != null)
+            {
+                // Remove related attendances
+                _context.Attendances.RemoveRange(course.Attendances);
+
+                // Remove the course
+                _context.Courses.Remove(course);
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

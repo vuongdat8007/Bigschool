@@ -41,7 +41,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $.get('/api/UserManagementApi', function (data) {
+            $.get('/api/UserManagementApi/Get', function (data) {
                 // Create and populate the data tables
                 var usersTableHtml = createUsersTable(data);
                 var rolesTableHtml = createRolesTable(data);

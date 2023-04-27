@@ -16,6 +16,9 @@ namespace Bigschool_TH_11.Models
         [StringLength(255)]
         public string Name { get; set; }
 
+        public string CBNVId { get; set; }
+        public CBNV CBNV { get; set; }
+
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }  
 

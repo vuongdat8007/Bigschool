@@ -51,9 +51,10 @@ namespace Bigschool_TH_11.Models
                 .WillCascadeOnDelete(true); // Enable cascade delete*/
 
             modelBuilder.Entity<Attendance>()
-                .HasRequired(a => a.Course)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+            .HasRequired(a => a.Course)
+            .WithMany()
+            .HasForeignKey(a => a.CourseId)
+            .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.Followers)
@@ -64,6 +65,11 @@ namespace Bigschool_TH_11.Models
                 .HasMany(u => u.Followees)
                 .WithRequired(f => f.Follower)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOptional(u => u.CBNV) // Make the relationship optional
+                .WithMany() // Do not specify the navigation property on the other side
+                .HasForeignKey(u => u.CBNVId); // Use CBNVId as the foreign key
 
             modelBuilder.Entity<CBNVCongTac>()
                 .HasKey(c => new { c.MaCBNV, c.MaChucVu });

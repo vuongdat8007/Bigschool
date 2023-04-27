@@ -11,6 +11,7 @@ namespace Bigschool_TH_11.ViewModels
     {
         public List<ApplicationUser> Users { get; set; }
         public List<IdentityRole> Roles { get; set; }
+        public List<CBNV> CBNVs { get; set; }
         public List<ChucNang> ChucNangs { get; set; }
         public List<QuyenTruyCap> QuyenTruyCaps { get; set; }
     }

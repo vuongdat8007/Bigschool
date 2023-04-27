@@ -12,6 +12,7 @@ using System.Data.Entity;
 using Microsoft.AspNet.Identity.Owin;
 using Unity;
 using Unity.Mvc5;
+using System.Web.Security;
 
 namespace Bigschool_TH_11.Controllers
 {
@@ -55,9 +56,10 @@ namespace Bigschool_TH_11.Controllers
                 Users = await _userManager.Users.ToListAsync(),
                 Roles = await _roleManager.Roles.ToListAsync(),
                 ChucNangs = await _context.ChucNangs.ToListAsync(),
-                QuyenTruyCaps = await _context.QuyenTruyCaps.ToListAsync()
+                QuyenTruyCaps = await _context.QuyenTruyCaps.ToListAsync(),
+                CBNVs = await _context.CBNVs.ToListAsync()
             };
-
+            ViewBag.Roles = _roleManager.Roles;
             return View(viewModel);
         }
 

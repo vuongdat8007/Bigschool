@@ -357,6 +357,22 @@
     <Compile Include="Migrations\202304261342347_AddUserManagementAndRoles.designer.cs">
       <DependentUpon>202304261342347_AddUserManagementAndRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304261656392_AddUserManagementAndRoles2.cs" />
+    <Compile Include="Migrations\202304261656392_AddUserManagementAndRoles2.designer.cs">
+      <DependentUpon>202304261656392_AddUserManagementAndRoles2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304270300207_updateAttendancesCascadeDelete.cs" />
+    <Compile Include="Migrations\202304270300207_updateAttendancesCascadeDelete.designer.cs">
+      <DependentUpon>202304270300207_updateAttendancesCascadeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304270301128_updateAttendancesCascadeDelete1.cs" />
+    <Compile Include="Migrations\202304270301128_updateAttendancesCascadeDelete1.designer.cs">
+      <DependentUpon>202304270301128_updateAttendancesCascadeDelete1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304270307081_updateAttendancesCascadeDelete2.cs" />
+    <Compile Include="Migrations\202304270307081_updateAttendancesCascadeDelete2.designer.cs">
+      <DependentUpon>202304270307081_updateAttendancesCascadeDelete2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -876,6 +892,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304261342347_AddUserManagementAndRoles.resx">
       <DependentUpon>202304261342347_AddUserManagementAndRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304261656392_AddUserManagementAndRoles2.resx">
+      <DependentUpon>202304261656392_AddUserManagementAndRoles2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304270300207_updateAttendancesCascadeDelete.resx">
+      <DependentUpon>202304270300207_updateAttendancesCascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304270301128_updateAttendancesCascadeDelete1.resx">
+      <DependentUpon>202304270301128_updateAttendancesCascadeDelete1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304270307081_updateAttendancesCascadeDelete2.resx">
+      <DependentUpon>202304270307081_updateAttendancesCascadeDelete2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
