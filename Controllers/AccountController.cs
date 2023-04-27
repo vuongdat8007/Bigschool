@@ -79,6 +79,8 @@ namespace Bigschool_TH_11.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    // Log the successful login
+                    //await UserManager.LogActivityAsync(User.Identity.GetUserId(), "User logged in");
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

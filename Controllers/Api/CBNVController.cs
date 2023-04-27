@@ -184,7 +184,12 @@ namespace Bigschool_TH_11.Controllers.Api
             // Set the PhongBan relationship
             if (cbnvViewModel.PhongBan != null)
             {
-                cbnvViewModel.CBNV.MaPhongBan = cbnvViewModel.PhongBan.MaPhongBan;
+                // Fetch the existing PhongBan from the database
+                var existingPhongBan = await db.PhongBans.FindAsync(cbnvViewModel.PhongBan.MaPhongBan);
+                if (existingPhongBan != null)
+                {
+                    cbnvViewModel.CBNV.PhongBan = existingPhongBan;
+                }
             }
 
             if (cbnvViewModel.BankingInfo != null)
