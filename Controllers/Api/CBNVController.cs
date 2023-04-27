@@ -11,6 +11,8 @@ using System.Web.Http.Description;
 using Bigschool_TH_11.Models;
 using Bigschool_TH_11.ViewModels;
 using Newtonsoft.Json;
+using Bigschool_TH_11.Attributes;
+using System.Web.Security;
 
 namespace Bigschool_TH_11.Controllers.Api
 {
@@ -234,6 +236,7 @@ namespace Bigschool_TH_11.Controllers.Api
 
         // DELETE: api/CBNV/5
         [ResponseType(typeof(CBNV))]
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public async Task<IHttpActionResult> DeleteCBNV(string id)
         {
             CBNV cbnv = await db.CBNVs.Include(c => c.BankingInfo).SingleOrDefaultAsync(c => c.MaCBNV == id);

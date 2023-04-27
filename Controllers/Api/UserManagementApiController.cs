@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.ComponentModel.DataAnnotations;
 using System.Web.ApplicationServices;
-
+using Bigschool_TH_11.Attributes;
 
 namespace Bigschool_TH_11.Controllers.Api
 {
+    [CustomAuthorize(Roles = "SuperAdmin")]
     public class UserManagementApiController : ApiController
     {
         private readonly UserManager<ApplicationUser> _userManager;

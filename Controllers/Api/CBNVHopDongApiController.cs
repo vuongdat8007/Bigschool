@@ -4,10 +4,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using Bigschool_TH_11.Attributes;
+using System.Web.Security;
 using Bigschool_TH_11.Models;
 
 namespace Bigschool_TH_11.Controllers.Api
 {
+    [Authorize]
     public class CBNVHopDongApiController : ApiController
     {
         private ApplicationDbContext _context;
@@ -94,6 +97,7 @@ namespace Bigschool_TH_11.Controllers.Api
 
         // DELETE: api/CBNVHopDongApi/5
         [HttpDelete]
+        [CustomAuthorize(Roles = "SuperAdmin")]
         public IHttpActionResult DeleteCBNVHopDong(int id)
         {
             var cbnvHopDongInDb = _context.HopDongCBNVs.SingleOrDefault(h => h.ID == id);
