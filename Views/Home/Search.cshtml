@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Kết Quả Tìm Kiếm";
+}
+
+@model Bigschool_TH_11.ViewModels.SearchViewModel
+<div class="jumbotron text-center">
+    <h2>Kết quả tìm kiếm trong các bảng dữ liệu của Trường: </h2>
+    <p class="h3 text-info">Users, CBNVs, Roles, CBNVCongTacs, BangCapCBNVChuyenNganhs</p>
+</div>
+<div class="card-columns mt-4">
+
+    @if (Model.Users.Count > 0)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Users</h4>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @foreach (var user in Model.Users)
+                        {
+                            <li class="list-group-item">@user.UserName (@user.Email)</li>
+                        }
+                    </ul>
+                </p>
+                <a href="@Url.Action("Index", "UserManagement")" class="card-link btn btn-info">Quản lý User đăng nhập</a>
+            </div>
+        </div>
+    }
+
+    @if (Model.CBNVs.Count > 0)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nhân viên (CBNVs)</h4>
+                <p class="card-text">
+                    @foreach (var cbnv in Model.CBNVs)
+                    {
+                        <li class="list-group-item">@cbnv.HoTen (@cbnv.MaCBNV)</li>
+                    }
+                </p>
+                <a href="@Url.Action("Index", "CBNV")" class="card-link btn btn-info">Quản lý CBNV</a>
+                <a href="@Url.Action("CBNVHopDong", "HopDongs")" class="card-link btn btn-info">Hợp Đồng CBNV</a>
+            </div>
+        </div>
+    }
+
+    @if (Model.Roles.Count > 0)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Roles</h4>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @foreach (var role in Model.Roles)
+                        {
+                            <li class="list-group-item">@role.Name</li>
+                        }
+                    </ul>
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+
+    @if (Model.CBNVCongTacs.Count > 0)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Công Tác của CBNV (CBNVCongTacs)</h4>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @foreach (var role in Model.CBNVCongTacs)
+                        {
+                            <li class="list-group-item">@role.TenTruong</li>
+                        }
+                    </ul>
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+
+    @if (Model.BangCapCBNVChuyenNganhs.Count > 0)
+    {
+       <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Bằng Cấp - CBNV - Chuyên Ngành</h4>
+                <p class="card-text">
+                    <ul class="list-group">
+                        @foreach (var role in Model.BangCapCBNVChuyenNganhs)
+                        {
+                            <li class="list-group-item">@role.TenTruong</li>
+                        }
+                    </ul>
+                </p>
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+    }
+
+</div>

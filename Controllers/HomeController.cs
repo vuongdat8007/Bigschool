@@ -52,5 +52,35 @@ namespace Bigschool_TH_11.Controllers
 
             return View();
         }
+
+        public ActionResult Search(string query)
+        {
+            var viewModel = new SearchViewModel();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                viewModel.Users = _dbContext.Users
+                    .Where(u => u.UserName.Contains(query) || u.Email.Contains(query))
+                    .ToList();
+
+                viewModel.CBNVs = _dbContext.CBNVs
+                    .Where(c => c.HoTen.Contains(query) || c.MaCBNV.Contains(query))
+                    .ToList();
+
+                viewModel.Roles = _dbContext.Roles
+                    .Where(r => r.Name.Contains(query))
+                    .ToList();
+
+                viewModel.CBNVCongTacs = _dbContext.CBNVCongTacs
+                    .Where(r => r.TenTruong.Contains(query))
+                    .ToList();
+
+                viewModel.BangCapCBNVChuyenNganhs = _dbContext.BangCapCBNVChuyenNganhs
+                    .Where(r => r.TenTruong.Contains(query))
+                    .ToList();
+            }
+
+            return View(viewModel);
+        }
     }
 }

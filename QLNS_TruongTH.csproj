@@ -417,6 +417,7 @@
     <Compile Include="ViewModels\ManagementViewModel.cs" />
     <Compile Include="ViewModels\PhongBanViewModel.cs" />
     <Compile Include="ViewModels\QuyenTruyCapEditViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\UserManagementViewModel.cs" />
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
@@ -772,6 +773,7 @@
     <Content Include="Views\UserManagement\_UserDetails.cshtml" />
     <Content Include="Views\UserManagement\_RoleDetails.cshtml" />
     <Content Include="Views\UserManagement\Manage.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
